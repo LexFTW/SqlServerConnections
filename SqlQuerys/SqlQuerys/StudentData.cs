@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using log4net;
+using SqlQuerys.Properties;
 
 namespace SqlQuerys
 {
@@ -20,7 +21,12 @@ namespace SqlQuerys
             bool created = false;
             try
             {
-                commandSql = new SqlCommand("insert into Student(StudentGuid,Name,Surname,Birthday,Age) values ('" +student.StuidetnGuid1+ "','" + student.StudentName + "','" + student.StudentSurname + "','" + student.AgeOfBirth + "','"+student.StudentAge+ "')", ConnectionUtility.OpenConnection());
+                commandSql = new SqlCommand(Resources.SqlInsert, ConnectionUtility.OpenConnection());
+                commandSql.Parameters.AddWithValue("@studentGuid", student.StuidetnGuid1);
+                commandSql.Parameters.AddWithValue("@studentName", student.StudentName);
+                commandSql.Parameters.AddWithValue("@studentSurname", student.StudentSurname);
+                commandSql.Parameters.AddWithValue("@studentBirthday", student.AgeOfBirth);
+                commandSql.Parameters.AddWithValue("@studentAge", student.StudentAge);
                 commandSql.ExecuteNonQuery();
                 logger.Info("Insertado");
                 created = true;
@@ -39,8 +45,9 @@ namespace SqlQuerys
             bool delete = false;
             try
             {
-                commandSql = new SqlCommand("delete from Libros where Codigo=" + pId, ConnectionUtility.OpenConnection());
+                commandSql = new SqlCommand(Resources.SqlDelete, ConnectionUtility.OpenConnection());
                 commandSql.ExecuteNonQuery();
+                commandSql.Parameters.AddWithValue("@pId", pId);
                 delete = true;
             }
             catch (Exception e)
@@ -55,7 +62,8 @@ namespace SqlQuerys
             Student student = new Student();
             try
             {
-                commandSql = new SqlCommand("select * from Student where StudentId=" + pId, ConnectionUtility.OpenConnection());
+                commandSql = new SqlCommand(Resources.SqlSelect, ConnectionUtility.OpenConnection());
+                commandSql.Parameters.AddWithValue("@pId", pId); ;
                 commandSql.ExecuteNonQuery();
                 dataReaderSql = commandSql.ExecuteReader();
                 while (dataReaderSql.Read())
@@ -78,7 +86,12 @@ namespace SqlQuerys
             Student student = Read(pId);
             try
             {
-                commandSql = new SqlCommand("update Student set StudentGuid='"+student.StuidetnGuid1 +"',Name='" + student.StudentName + "',Surname='" + student.StudentSurname + "',Birthday='" + student.AgeOfBirth+"',Age='"+ student.StudentAge +"' where StudentId= " + pId, ConnectionUtility.OpenConnection());
+                commandSql = new SqlCommand(Resources.SqlUpdate, ConnectionUtility.OpenConnection());
+                commandSql.Parameters.AddWithValue("@studentGuid", student.StuidetnGuid1);
+                commandSql.Parameters.AddWithValue("@studentName", student.StudentName);
+                commandSql.Parameters.AddWithValue("@studentSurname", student.StudentSurname);
+                commandSql.Parameters.AddWithValue("@studentBirthday", student.AgeOfBirth);
+                commandSql.Parameters.AddWithValue("@studentAge", student.StudentAge);
                 commandSql.ExecuteNonQuery();
                 logger.Info("Update");
                 updated = true;
