@@ -10,7 +10,7 @@ namespace EntityFrameworkFirstCode
     {
         public bool Create(Student student)
         {
-            throw new NotImplementedException();
+            return true;
         }
 
         public bool Delete(Student student)
