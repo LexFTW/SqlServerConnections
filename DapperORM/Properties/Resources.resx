@@ -123,6 +123,9 @@
   <data name="SqlCreateQuery" xml:space="preserve">
     <value>INSERT INTO Students (Name, Surname, Age, StudentGuid) VALUES (@Name, @Surname, @Age, @StudentGuid);</value>
   </data>
+  <data name="sqlDeleteById" xml:space="preserve">
+    <value>DELETE FROM Students WHERE StudentId = @StudentId;</value>
+  </data>
   <data name="SqlSelectAll" xml:space="preserve">
     <value>SELECT * FROM Students</value>
   </data>

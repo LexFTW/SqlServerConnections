@@ -29,7 +29,19 @@ namespace DapperORM
 
         public bool Delete(Student student)
         {
-            throw new NotImplementedException();
+            using (var connection = new SqlConnection(Resources.SimpleConnection))
+            {
+                try
+                {
+                    connection.Execute(Resources.sqlDeleteById, student);
+                    return true;
+                }
+                catch (Exception e)
+                {
+                    // Logs
+                    throw;
+                }
+            }
         }
 
         public List<Student> Read()

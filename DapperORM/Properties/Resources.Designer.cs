@@ -79,6 +79,15 @@ namespace DapperORM.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a DELETE FROM Students WHERE StudentId = @StudentId;.
+        /// </summary>
+        internal static string sqlDeleteById {
+            get {
+                return ResourceManager.GetString("sqlDeleteById", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a SELECT * FROM Students.
         /// </summary>
         internal static string SqlSelectAll {

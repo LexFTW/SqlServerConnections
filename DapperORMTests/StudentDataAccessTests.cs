@@ -28,7 +28,12 @@ namespace DapperORM.Tests
         [TestMethod()]
         public void DeleteTest()
         {
-            Assert.Fail();
+            Student student = new Student();
+            student.StudentId = 10;
+
+            IStudentDataAccess studentDataAccess = new StudentDataAccess();
+            var result = studentDataAccess.Delete(student);
+            Assert.IsTrue(result);
         }
 
         [TestMethod()]
