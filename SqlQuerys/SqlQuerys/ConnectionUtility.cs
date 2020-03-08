@@ -6,13 +6,14 @@ using SqlQuerys.Properties;
 
 namespace SqlQuerys
 {
-    class ConnectionUtility
+    public class ConnectionUtility
     {
         private static readonly ILog logger = LogManager.GetLogger(typeof(ConnectionUtility));
         SqlConnection connectionSql;
 
-        public void OpenConnection()
+        public static SqlConnection OpenConnection()
         {
+            SqlConnection connectionSql= new SqlConnection();
             try
             {
                 connectionSql = new SqlConnection(GetConnectionStringByName(Resources.SqlString));
@@ -22,13 +23,14 @@ namespace SqlQuerys
             {
                 logger.Info("Connection Error", exception);
             }
+            return connectionSql;
         }
 
         public void CloseConnection()
         {
             connectionSql.Close();
         }
-        public string GetConnectionStringByName(string name)
+        public static string GetConnectionStringByName(string name)
         {
             string returnValue = null;
             ConnectionStringSettings settings =
