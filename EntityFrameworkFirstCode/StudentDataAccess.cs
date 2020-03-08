@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace EntityFrameworkFirstCode
 {
-    class StudentDataAccess : IStudentDataAccess
+    public class StudentDataAccess : IStudentDataAccess
     {
         public bool Create(Student student)
         {
