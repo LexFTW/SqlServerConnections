@@ -4,11 +4,20 @@ using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using EntityFrameworkFirstCode.Properties;
+using log4net;
 
 namespace EntityFrameworkFirstCode
 {
     public class StudentDataAccess : IStudentDataAccess
     {
+        private static readonly ILog logger = LogManager.GetLogger(typeof(Student));
+
+        public StudentDataAccess()
+        {
+            log4net.Config.XmlConfigurator.Configure();
+        }
+
         public bool Create(Student student)
         {
             using(var db = new StudentDataset())
@@ -19,7 +28,8 @@ namespace EntityFrameworkFirstCode
                     db.SaveChanges();
                     return true;
                 }catch(Exception e){
-                    // Logs
+                    logger.Error(Resources.sqlExceptionCreate);
+                    logger.Error(e.Message);
                     throw;
                 }
             }
@@ -35,7 +45,8 @@ namespace EntityFrameworkFirstCode
                     db.SaveChanges();
                     return true;
                 }catch(Exception e){
-                    // Logs
+                    logger.Error(Resources.sqlExceptionDelete);
+                    logger.Error(e.Message);
                     throw;
                 }
             }
@@ -52,7 +63,8 @@ namespace EntityFrameworkFirstCode
                     return students;
                 }catch(Exception e)
                 {
-                    // logs
+                    logger.Error(Resources.sqlExceptionRead);
+                    logger.Error(e.Message);
                     throw;
                 }
             }
@@ -69,7 +81,8 @@ namespace EntityFrameworkFirstCode
                 }
                 catch (Exception e)
                 {
-                    // logs
+                    logger.Error(Resources.sqlExceptionRead);
+                    logger.Error(e.Message);
                     throw;
                 }
             }
@@ -85,7 +98,8 @@ namespace EntityFrameworkFirstCode
                     return student;
                 }catch(Exception e)
                 {
-                    // Logs
+                    logger.Error(Resources.sqlExceptionRead);
+                    logger.Error(e.Message);
                     throw;
                 }
             }
@@ -101,10 +115,17 @@ namespace EntityFrameworkFirstCode
 
             using (var db = new StudentDataset())
             {
-                db.SaveChanges();
-                return true;
+                try
+                {
+                    db.SaveChanges();
+                    return true;
+                }catch(Exception e)
+                {
+                    logger.Error(Resources.sqlExceptionUpdate);
+                    logger.Error(e.Message);
+                    throw;
+                }
             }
-            throw new Exception();
         }
     }
 }
