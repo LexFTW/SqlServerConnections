@@ -61,12 +61,53 @@ namespace SqlStoredProcedures
 
         public Student Read(int pId)
         {
-            throw new NotImplementedException();
+            Student student = new Student();
+            try
+            {
+                commandSql = new SqlCommand("SelectStudent", ConnectionUtility.OpenConnection());
+                commandSql.CommandType = CommandType.StoredProcedure;
+                commandSql.Parameters.AddWithValue("@pId", pId);
+                commandSql.ExecuteNonQuery();
+                dataReaderSql = commandSql.ExecuteReader();
+                while (dataReaderSql.Read())
+                {
+                    student = new Student(Convert.ToInt32(dataReaderSql["StudentId"]), Guid.Parse(dataReaderSql["StudentGuid"].ToString()), dataReaderSql["Name"].ToString(), dataReaderSql["Surname"].ToString(), Convert.ToDateTime(dataReaderSql["Birthday"]), Convert.ToInt32(dataReaderSql["Age"]));
+                    logger.Info(student.StudentId + " " + student.StudentName + " " + student.AgeOfBirth);
+                }
+                dataReaderSql.Close();
+            }
+            catch (Exception ex)
+            {
+                logger.Info("No se pudo realizar la consulta" + ex.ToString());
+            }
+            return student;
         }
 
         public bool Update(int pId, string pName, string pSurname, string pBirth)
         {
-            throw new NotImplementedException();
+            bool updated = false;
+            Student student = Read(pId);
+            Student studentNew = StudentDataUtility.AddStudent(pName, pSurname, pBirth);
+            try
+            {
+                commandSql = new SqlCommand("UpdateStudent", ConnectionUtility.OpenConnection());
+                commandSql.CommandType = CommandType.StoredProcedure;
+                commandSql.Parameters.AddWithValue("@pId", pId);
+                commandSql.Parameters.AddWithValue("@studentGuid", studentNew.StudentGuid1);
+                commandSql.Parameters.AddWithValue("@studentName", studentNew.StudentName);
+                commandSql.Parameters.AddWithValue("@studentSurname", studentNew.StudentSurname);
+                commandSql.Parameters.AddWithValue("@studentBirthday", studentNew.AgeOfBirth);
+                commandSql.Parameters.AddWithValue("@studentAge", studentNew.StudentAge);
+                commandSql.ExecuteNonQuery();
+                logger.Info("Update");
+                updated = true;
+            }
+            catch (Exception e)
+            {
+                logger.Info("no se insertó" + e.ToString());
+            }
+
+            return updated;
         }
     }
 }
