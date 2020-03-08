@@ -2,14 +2,21 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using EntityFrameworkDatabaseFirst.Database_First;
+using EntityFrameworkDatabaseFirst.Properties;
+using log4net;
 
 namespace EntityFrameworkDatabaseFirst
 {
     public class StudentDataAccess : IStudentDataAccess
     {
+        private static readonly ILog logger = LogManager.GetLogger(typeof(Student));
+
+        public StudentDataAccess()
+        {
+            log4net.Config.XmlConfigurator.Configure();
+        }
+
         public bool Create(Student student)
         {
             using (var db = new StudentContext())
@@ -22,7 +29,8 @@ namespace EntityFrameworkDatabaseFirst
                 }
                 catch (Exception e)
                 {
-                    //Logs
+                    logger.Error(Resources.sqlExceptionCreate);
+                    logger.Error(e.Message);
                     throw;
                 }
             }
@@ -40,7 +48,8 @@ namespace EntityFrameworkDatabaseFirst
                 }
                 catch (Exception e)
                 {
-                    // Logs
+                    logger.Error(Resources.sqlExceptionDelete);
+                    logger.Error(e.Message);
                     throw;
                 }
             }
@@ -58,7 +67,8 @@ namespace EntityFrameworkDatabaseFirst
                 }
                 catch (Exception e)
                 {
-                    // Logs
+                    logger.Error(Resources.sqlExceptionRead);
+                    logger.Error(e.Message);
                     throw;
                 }
             }
@@ -75,7 +85,8 @@ namespace EntityFrameworkDatabaseFirst
                 }
                 catch (Exception e)
                 {
-                    // Logs
+                    logger.Error(Resources.sqlExceptionRead);
+                    logger.Error(e.Message);
                     throw;
                 }
             }
@@ -92,7 +103,8 @@ namespace EntityFrameworkDatabaseFirst
                 }
                 catch (Exception e)
                 {
-                    // Logs
+                    logger.Error(Resources.sqlExceptionRead);
+                    logger.Error(e.Message);
                     throw;
                 }
             }
@@ -109,7 +121,8 @@ namespace EntityFrameworkDatabaseFirst
                 }
                 catch (Exception e)
                 {
-                    // Logs
+                    logger.Error(Resources.sqlExceptionRead);
+                    logger.Error(e.Message);
                     throw;
                 }
             }
@@ -132,7 +145,8 @@ namespace EntityFrameworkDatabaseFirst
                 }
                 catch (Exception e)
                 {
-                    // Logs
+                    logger.Error(Resources.sqlExceptionUpdate);
+                    logger.Error(e.Message);
                     throw;
                 }
             }
