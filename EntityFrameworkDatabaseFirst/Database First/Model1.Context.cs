@@ -7,16 +7,16 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace EntityFrameworkDatabaseFirst
+namespace EntityFrameworkDatabaseFirst.Database_First
 {
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class VuelingEntities : DbContext
+    public partial class StudentContext : DbContext
     {
-        public VuelingEntities()
-            : base("name=VuelingEntities")
+        public StudentContext()
+            : base("name=StudentContext")
         {
         }
     
@@ -25,6 +25,6 @@ namespace EntityFrameworkDatabaseFirst
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Students> Students { get; set; }
+        public virtual DbSet<Student> Students { get; set; }
     }
 }

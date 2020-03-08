@@ -7,12 +7,12 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace EntityFrameworkDatabaseFirst
+namespace EntityFrameworkDatabaseFirst.Database_First
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Students
+    public partial class Student
     {
         public int StudentId { get; set; }
         public string Name { get; set; }
