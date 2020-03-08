@@ -32,19 +32,79 @@ namespace DapperORM
             throw new NotImplementedException();
         }
 
+        public List<Student> Read()
+        {
+            var list = new List<Student>();
+            using (var connection = new SqlConnection(Resources.SimpleConnection))
+            {
+                try
+                {
+                    connection.Open();
+                    list = connection.Query<Student>(Resources.SqlSelectAll).ToList();
+                    return list;
+                }
+                catch (Exception e)
+                {
+                    // Logs;
+                    throw;
+                }
+            }
+        }
+
         public List<Student> Read(string value)
         {
-            throw new NotImplementedException();
+            var list = new List<Student>();
+            using (var connection = new SqlConnection(Resources.SimpleConnection))
+            {
+                try
+                {
+                    connection.Open();
+                    list = connection.Query<Student>(Resources.SqlSelectStrings, new {Name = "%" + value + "%", Surname = "%" + value + "%" }).ToList();
+                    return list;
+                }catch(Exception e)
+                {
+                    // Logs;
+                    throw;
+                }
+            }
         }
 
         public List<Student> Read(int value)
         {
-            throw new NotImplementedException();
+            var list = new List<Student>();
+            using (var connection = new SqlConnection(Resources.SimpleConnection))
+            {
+                try
+                {
+                    connection.Open();
+                    list = connection.Query<Student>(Resources.sqlSelectInts, new { Age = value}).ToList();
+                    return list;
+                }
+                catch (Exception e)
+                {
+                    // Logs;
+                    throw;
+                }
+            }
         }
 
         public Student ReadById(int id)
         {
-            throw new NotImplementedException();
+            Student student = new Student();
+            using (var connection = new SqlConnection(Resources.SimpleConnection))
+            {
+                try
+                {
+                    connection.Open();
+                    student = connection.QueryFirst<Student>(Resources.sqlSelectById, new { Id = id });
+                    return student;
+                }
+                catch (Exception e)
+                {
+                    // Logs;
+                    throw;
+                }
+            }
         }
 
         public bool Update(Student student)

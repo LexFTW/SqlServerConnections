@@ -77,5 +77,41 @@ namespace DapperORM.Properties {
                 return ResourceManager.GetString("SqlCreateQuery", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a SELECT * FROM Students.
+        /// </summary>
+        internal static string SqlSelectAll {
+            get {
+                return ResourceManager.GetString("SqlSelectAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a SELECT * FROM Students WHERE StudentId = @Id.
+        /// </summary>
+        internal static string sqlSelectById {
+            get {
+                return ResourceManager.GetString("sqlSelectById", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a SELECT * FROM Students WHERE Age = @Age;.
+        /// </summary>
+        internal static string sqlSelectInts {
+            get {
+                return ResourceManager.GetString("sqlSelectInts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a SELECT * FROM Students WHERE Name LIKE @Name OR Surname LIKE @Surname;.
+        /// </summary>
+        internal static string SqlSelectStrings {
+            get {
+                return ResourceManager.GetString("SqlSelectStrings", resourceCulture);
+            }
+        }
     }
 }

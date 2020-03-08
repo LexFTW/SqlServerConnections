@@ -6,6 +6,7 @@ namespace DapperORM
     {
         bool Create(Student student);
         Student ReadById(int id);
+        List<Student> Read();
         List<Student> Read(string value);
         List<Student> Read(int value);
         bool Update(Student student);

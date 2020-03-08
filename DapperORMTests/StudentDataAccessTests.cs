@@ -21,7 +21,8 @@ namespace DapperORM.Tests
             student.StudentGuid = System.Guid.NewGuid();
 
             IStudentDataAccess studentDataAccess = new StudentDataAccess();
-            studentDataAccess.Create(student);
+            var result = studentDataAccess.Create(student);
+            Assert.IsTrue(result);
         }
 
         [TestMethod()]
@@ -33,19 +34,25 @@ namespace DapperORM.Tests
         [TestMethod()]
         public void ReadTest()
         {
-            Assert.Fail();
+            IStudentDataAccess studentDataAccess = new StudentDataAccess();
+            var result = studentDataAccess.Read();
+            Assert.IsNotNull(result);
         }
 
         [TestMethod()]
         public void ReadTest1()
         {
-            Assert.Fail();
+            IStudentDataAccess studentDataAccess = new StudentDataAccess();
+            var result = studentDataAccess.Read(22);
+            Assert.IsNotNull(result);
         }
 
         [TestMethod()]
         public void ReadByIdTest()
         {
-            Assert.Fail();
+            IStudentDataAccess studentDataAccess = new StudentDataAccess();
+            var student = studentDataAccess.ReadById(1);
+            Assert.IsInstanceOfType(student, typeof(Student));
         }
 
         [TestMethod()]

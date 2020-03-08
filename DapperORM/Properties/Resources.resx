@@ -123,4 +123,16 @@
   <data name="SqlCreateQuery" xml:space="preserve">
     <value>INSERT INTO Students (Name, Surname, Age, StudentGuid) VALUES (@Name, @Surname, @Age, @StudentGuid);</value>
   </data>
+  <data name="SqlSelectAll" xml:space="preserve">
+    <value>SELECT * FROM Students</value>
+  </data>
+  <data name="sqlSelectById" xml:space="preserve">
+    <value>SELECT * FROM Students WHERE StudentId = @Id</value>
+  </data>
+  <data name="sqlSelectInts" xml:space="preserve">
+    <value>SELECT * FROM Students WHERE Age = @Age;</value>
+  </data>
+  <data name="SqlSelectStrings" xml:space="preserve">
+    <value>SELECT * FROM Students WHERE Name LIKE @Name OR Surname LIKE @Surname;</value>
+  </data>
 </root>
