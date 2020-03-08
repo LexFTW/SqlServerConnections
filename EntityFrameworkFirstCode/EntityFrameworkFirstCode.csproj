@@ -52,7 +52,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
+    <Compile Include="IStudentDataAccess.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Student.cs" />
+    <Compile Include="StudentDataAccess.cs" />
+    <Compile Include="StudentDataset.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
