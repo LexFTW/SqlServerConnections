@@ -31,7 +31,19 @@ namespace EntityFrameworkFirstCode
 
         public List<Student> Read(string query)
         {
-            throw new NotImplementedException();
+            using (var db = new StudentDataset())
+            {
+                try
+                {
+                    var students = db.Students.Where(s => s.Name.Contains(query) 
+                    || s.Surname.Contains(query)).ToList();
+                    return students;
+                }catch(Exception e)
+                {
+                    // logs
+                    throw;
+                }
+            }
         }
 
         public Student ReadById(int id)

@@ -37,10 +37,14 @@ namespace EntityFrameworkFirstCode.Tests
             Assert.Fail();
         }
 
-        [TestMethod()]
-        public void ReadTest()
+        [DataRow("Alexis")]
+        [DataRow("Mengual")]
+        [DataRow("22")]
+        [DataTestMethod()]
+        public void ReadTest(string value)
         {
-            Assert.Fail();
+            var students = studentDataAccess.Read(value);
+            Assert.IsNotNull(students);
         }
 
         [TestMethod()]
