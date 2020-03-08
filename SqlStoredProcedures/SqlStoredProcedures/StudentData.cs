@@ -23,6 +23,7 @@ namespace SqlStoredProcedures
             try
             {
                 commandSql = new SqlCommand("InsertStudent", ConnectionUtility.OpenConnection());
+                commandSql.CommandType = CommandType.StoredProcedure;
                 commandSql.Parameters.AddWithValue("@studentGuid", student.StudentGuid1);
                 commandSql.Parameters.AddWithValue("@studentName", student.StudentName);
                 commandSql.Parameters.AddWithValue("@studentSurname", student.StudentSurname);
@@ -41,7 +42,21 @@ namespace SqlStoredProcedures
 
         public bool Delete(int pId)
         {
-            throw new NotImplementedException();
+            bool delete = false;
+            try
+            {
+                commandSql = new SqlCommand("DeleteStudent", ConnectionUtility.OpenConnection());
+                commandSql.CommandType = CommandType.StoredProcedure;
+                commandSql.Parameters.AddWithValue("@pId", pId);
+                commandSql.ExecuteNonQuery();
+                delete = true;
+            }
+            catch (Exception e)
+            {
+                logger.Info("no se borró" + e.ToString());
+            }
+
+            return delete;
         }
 
         public Student Read(int pId)
