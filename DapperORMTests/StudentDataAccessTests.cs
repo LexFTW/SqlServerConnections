@@ -63,7 +63,16 @@ namespace DapperORM.Tests
         [TestMethod()]
         public void UpdateTest()
         {
-            Assert.Fail();
+            Student student = new Student();
+            student.StudentId = 1;
+            student.Name = "Dappersito";
+            student.Surname = "ORM";
+            student.Age = 1;
+            student.StudentGuid = System.Guid.NewGuid();
+
+            IStudentDataAccess studentDataAccess = new StudentDataAccess();
+            var result = studentDataAccess.Update(student);
+            Assert.IsTrue(result);
         }
     }
 }

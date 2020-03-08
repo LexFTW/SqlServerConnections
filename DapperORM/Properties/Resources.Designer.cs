@@ -122,5 +122,14 @@ namespace DapperORM.Properties {
                 return ResourceManager.GetString("SqlSelectStrings", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a UPDATE Students SET Name = @Name, Surname = @Surname, Age = @Age WHERE StudentId = @StudentId;.
+        /// </summary>
+        internal static string sqlUpdateQuery {
+            get {
+                return ResourceManager.GetString("sqlUpdateQuery", resourceCulture);
+            }
+        }
     }
 }

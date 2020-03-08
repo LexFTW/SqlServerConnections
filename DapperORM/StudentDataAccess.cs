@@ -121,7 +121,19 @@ namespace DapperORM
 
         public bool Update(Student student)
         {
-            throw new NotImplementedException();
+            using (var connection = new SqlConnection(Resources.SimpleConnection))
+            {
+                try
+                {
+                    connection.Execute(Resources.sqlUpdateQuery, student);
+                    return true;
+                }
+                catch (Exception e)
+                {
+                    // Logs
+                    throw;
+                }
+            }
         }
     }
 }

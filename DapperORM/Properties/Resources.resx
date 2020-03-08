@@ -138,4 +138,7 @@
   <data name="SqlSelectStrings" xml:space="preserve">
     <value>SELECT * FROM Students WHERE Name LIKE @Name OR Surname LIKE @Surname;</value>
   </data>
+  <data name="sqlUpdateQuery" xml:space="preserve">
+    <value>UPDATE Students SET Name = @Name, Surname = @Surname, Age = @Age WHERE StudentId = @StudentId;</value>
+  </data>
 </root>
