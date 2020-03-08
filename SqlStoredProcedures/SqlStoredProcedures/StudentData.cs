@@ -9,7 +9,7 @@ using log4net;
 
 namespace SqlStoredProcedures
 {
-    class StudentData:IStudentData
+   public class StudentData:IStudentData
     {
 
         private static readonly ILog logger = LogManager.GetLogger(typeof(StudentData));
@@ -59,7 +59,7 @@ namespace SqlStoredProcedures
             return delete;
         }
 
-        public Student Read(int pId)
+        public  Student Read(int pId)
         {
             Student student = new Student();
             try

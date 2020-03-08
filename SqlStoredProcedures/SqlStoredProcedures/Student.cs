@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace SqlStoredProcedures
 {
-    class Student
+    public class Student
     {
 
         private int studentId;
