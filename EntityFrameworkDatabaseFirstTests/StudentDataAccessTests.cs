@@ -74,6 +74,14 @@ namespace EntityFrameworkDatabaseFirst.Tests
         }
 
         [TestMethod()]
+        public void ReadAll()
+        {
+            var students = studentDataAccess.Read();
+            Assert.IsNotNull(students);
+
+        }
+
+        [TestMethod()]
         public void UpdateTest()
         {
             var student = new Student();

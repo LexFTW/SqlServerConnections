@@ -35,22 +35,71 @@ namespace EntityFrameworkDatabaseFirst
 
         public List<Student> Read(string value)
         {
-            throw new NotImplementedException();
+            using (var db = new StudentContext())
+            {
+                try
+                {
+                    var students = db.Students.Where(s => s.Name.Contains(value)
+                    || s.Surname.Contains(value)).ToList();
+                    return students;
+                }
+                catch (Exception e)
+                {
+                    // Logs
+                    throw;
+                }
+            }
         }
 
         public List<Student> Read(int value)
         {
-            throw new NotImplementedException();
+            using (var db = new StudentContext())
+            {
+                try
+                {
+                    var students = db.Students.Where(s => s.Age == value).ToList();
+                    return students;
+                }
+                catch (Exception e)
+                {
+                    // Logs
+                    throw;
+                }
+            }
         }
 
         public List<Student> Read()
         {
-            throw new NotImplementedException();
+            using (var db = new StudentContext())
+            {
+                try
+                {
+                    var students = db.Students.ToList();
+                    return students;
+                }
+                catch (Exception e)
+                {
+                    // Logs
+                    throw;
+                }
+            }
         }
 
         public Student ReadById(int id)
         {
-            throw new NotImplementedException();
+            using (var db = new StudentContext())
+            {
+                try
+                {
+                    var student = db.Students.Find(id);
+                    return student;
+                }
+                catch (Exception e)
+                {
+                    // Logs
+                    throw;
+                }
+            }
         }
 
         public bool Update(Student student)
