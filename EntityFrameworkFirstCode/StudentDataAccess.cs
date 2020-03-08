@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,7 +27,18 @@ namespace EntityFrameworkFirstCode
 
         public bool Delete(Student student)
         {
-            throw new NotImplementedException();
+            using (var db = new StudentDataset())
+            {
+                try
+                {
+                    db.Entry(student).State = EntityState.Deleted;
+                    db.SaveChanges();
+                    return true;
+                }catch(Exception e){
+                    // Logs
+                    throw;
+                }
+            }
         }
 
         public List<Student> Read(string value)

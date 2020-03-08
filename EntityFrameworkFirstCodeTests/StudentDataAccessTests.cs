@@ -34,7 +34,10 @@ namespace EntityFrameworkFirstCode.Tests
         [TestMethod()]
         public void DeleteTest()
         {
-            Assert.Fail();
+            Student student = new Student();
+            student.StudentId = 2;
+            var students = studentDataAccess.Delete(student);
+            Assert.IsTrue(students);
         }
 
         [DataRow("Alexis")]
