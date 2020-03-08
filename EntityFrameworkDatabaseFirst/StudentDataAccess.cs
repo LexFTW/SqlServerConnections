@@ -30,7 +30,20 @@ namespace EntityFrameworkDatabaseFirst
 
         public bool Delete(Student student)
         {
-            throw new NotImplementedException();
+            using (var db = new StudentContext())
+            {
+                try
+                {
+                    db.Entry(student).State = EntityState.Deleted;
+                    db.SaveChanges();
+                    return true;
+                }
+                catch (Exception e)
+                {
+                    // Logs
+                    throw;
+                }
+            }
         }
 
         public List<Student> Read(string value)
