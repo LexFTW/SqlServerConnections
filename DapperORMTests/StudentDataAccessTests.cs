@@ -1,5 +1,4 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using DapperORM;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,16 +10,35 @@ namespace DapperORM.Tests
     [TestClass()]
     public class StudentDataAccessTests
     {
+        private static StudentDataAccess studentDataAccess;
+
+        [ClassInitialize()]
+        public static void TestFixtureSetup(TestContext context)
+        {
+            studentDataAccess = new StudentDataAccess();
+        }
+
+        [TestInitialize()]
+        public void Setup()
+        {
+            Student student = new Student();
+            student.StudentId = 1;
+            student.Name = "Alexis";
+            student.Surname = "Mengual Vázquez";
+            student.Age = 22;
+            student.StudentGuid = System.Guid.NewGuid();
+
+            studentDataAccess.Create(student);
+        }
+
         [TestMethod()]
         public void CreateTest()
         {
             Student student = new Student();
-            student.Name = "Dapper";
-            student.Surname = "ORM";
-            student.Age = 1;
+            student.Name = "Alexis";
+            student.Surname = "Mengual Vázquez";
+            student.Age = 22;
             student.StudentGuid = System.Guid.NewGuid();
-
-            IStudentDataAccess studentDataAccess = new StudentDataAccess();
             var result = studentDataAccess.Create(student);
             Assert.IsTrue(result);
         }
@@ -29,48 +47,41 @@ namespace DapperORM.Tests
         public void DeleteTest()
         {
             Student student = new Student();
-            student.StudentId = 10;
-
-            IStudentDataAccess studentDataAccess = new StudentDataAccess();
-            var result = studentDataAccess.Delete(student);
-            Assert.IsTrue(result);
+            student.StudentId = 2;
+            var students = studentDataAccess.Delete(student);
+            Assert.IsTrue(students);
         }
 
-        [TestMethod()]
-        public void ReadTest()
+        [DataRow("Alexis")]
+        [DataRow("Mengual")]
+        [DataTestMethod()]
+        public void ReadTest(string value)
         {
-            IStudentDataAccess studentDataAccess = new StudentDataAccess();
-            var result = studentDataAccess.Read();
-            Assert.IsNotNull(result);
+            var students = studentDataAccess.Read(value);
+            Assert.IsNotNull(students);
         }
 
-        [TestMethod()]
-        public void ReadTest1()
+        [DataRow(22)]
+        [DataTestMethod()]
+        public void ReadIntTest(int value)
         {
-            IStudentDataAccess studentDataAccess = new StudentDataAccess();
-            var result = studentDataAccess.Read(22);
-            Assert.IsNotNull(result);
+            var students = studentDataAccess.Read(value);
+            Assert.IsNotNull(students);
         }
 
         [TestMethod()]
         public void ReadByIdTest()
         {
-            IStudentDataAccess studentDataAccess = new StudentDataAccess();
             var student = studentDataAccess.ReadById(1);
             Assert.IsInstanceOfType(student, typeof(Student));
+
         }
 
         [TestMethod()]
         public void UpdateTest()
         {
-            Student student = new Student();
+            var student = new Student();
             student.StudentId = 1;
-            student.Name = "Dappersito";
-            student.Surname = "ORM";
-            student.Age = 1;
-            student.StudentGuid = System.Guid.NewGuid();
-
-            IStudentDataAccess studentDataAccess = new StudentDataAccess();
             var result = studentDataAccess.Update(student);
             Assert.IsTrue(result);
         }
