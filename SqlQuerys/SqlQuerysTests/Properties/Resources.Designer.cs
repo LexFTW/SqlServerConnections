@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SqlQuerys.Properties {
+namespace SqlQuerysTests.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace SqlQuerys.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("SqlQuerys.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("SqlQuerysTests.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -97,7 +97,7 @@ namespace SqlQuerys.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a UPDATE Student SET StudentGuid = @studentGuid, Name= @studentName , Surname= @studentSurname , Birthday= @studentBirthday , Age=@studentAge WHERE StudentId=  @pId.
+        ///   Busca una cadena traducida similar a UPDATE Student SET StudentGuid=@studentGuid +Name= @studentName + Surname= @studentSurname + Birthday= @studentBirthday+Age=@studentAge WHERE StudentId=  @pId.
         /// </summary>
         internal static string SqlUpdate {
             get {

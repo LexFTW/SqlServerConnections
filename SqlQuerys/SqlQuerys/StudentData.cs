@@ -9,7 +9,7 @@ using SqlQuerys.Properties;
 
 namespace SqlQuerys
 {
-    class StudentData : IStudentData
+   public class StudentData : IStudentData
     {
 
         private static readonly ILog logger = LogManager.GetLogger(typeof(StudentData));
@@ -18,11 +18,12 @@ namespace SqlQuerys
         public bool Create(string pName, string pSurname, string pBirth)
         {
            Student student= StudentDataUtility.AddStudent(pName, pSurname, pBirth);
+            logger.Info(student.StudentGuid1 + "...." + student.StudentName);
             bool created = false;
             try
             {
                 commandSql = new SqlCommand(Resources.SqlInsert, ConnectionUtility.OpenConnection());
-                commandSql.Parameters.AddWithValue("@studentGuid", student.StuidetnGuid1);
+                commandSql.Parameters.AddWithValue("@studentGuid", student.StudentGuid1);
                 commandSql.Parameters.AddWithValue("@studentName", student.StudentName);
                 commandSql.Parameters.AddWithValue("@studentSurname", student.StudentSurname);
                 commandSql.Parameters.AddWithValue("@studentBirthday", student.AgeOfBirth);
@@ -46,8 +47,8 @@ namespace SqlQuerys
             try
             {
                 commandSql = new SqlCommand(Resources.SqlDelete, ConnectionUtility.OpenConnection());
-                commandSql.ExecuteNonQuery();
                 commandSql.Parameters.AddWithValue("@pId", pId);
+                commandSql.ExecuteNonQuery();
                 delete = true;
             }
             catch (Exception e)
@@ -63,7 +64,7 @@ namespace SqlQuerys
             try
             {
                 commandSql = new SqlCommand(Resources.SqlSelect, ConnectionUtility.OpenConnection());
-                commandSql.Parameters.AddWithValue("@pId", pId); ;
+                commandSql.Parameters.AddWithValue("@pId", pId); 
                 commandSql.ExecuteNonQuery();
                 dataReaderSql = commandSql.ExecuteReader();
                 while (dataReaderSql.Read())
@@ -80,18 +81,20 @@ namespace SqlQuerys
             return student;
         }
 
-        public bool Update(int pId)
+        public bool Update(int pId, string pName, string pSurname, string pBirth)
         {
             bool updated = false;
             Student student = Read(pId);
+            Student studentNew = StudentDataUtility.AddStudent(pName, pSurname, pBirth);
             try
             {
                 commandSql = new SqlCommand(Resources.SqlUpdate, ConnectionUtility.OpenConnection());
-                commandSql.Parameters.AddWithValue("@studentGuid", student.StuidetnGuid1);
-                commandSql.Parameters.AddWithValue("@studentName", student.StudentName);
-                commandSql.Parameters.AddWithValue("@studentSurname", student.StudentSurname);
-                commandSql.Parameters.AddWithValue("@studentBirthday", student.AgeOfBirth);
-                commandSql.Parameters.AddWithValue("@studentAge", student.StudentAge);
+                commandSql.Parameters.AddWithValue("@pId", pId);
+                commandSql.Parameters.AddWithValue("@studentGuid", studentNew.StudentGuid1);
+                commandSql.Parameters.AddWithValue("@studentName", studentNew.StudentName);
+                commandSql.Parameters.AddWithValue("@studentSurname", studentNew.StudentSurname);
+                commandSql.Parameters.AddWithValue("@studentBirthday", studentNew.AgeOfBirth);
+                commandSql.Parameters.AddWithValue("@studentAge", studentNew.StudentAge);
                 commandSql.ExecuteNonQuery();
                 logger.Info("Update");
                 updated = true;

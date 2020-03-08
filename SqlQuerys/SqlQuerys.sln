@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.29806.167
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SqlQuerys", "SqlQuerys\SqlQuerys.csproj", "{F085E3BB-CF2E-451E-9E4D-4D5EBA39C0D5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SqlQuerysTests", "SqlQuerysTests\SqlQuerysTests.csproj", "{02CF4FE8-A8DC-4DC4-B815-9447F160E07D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{F085E3BB-CF2E-451E-9E4D-4D5EBA39C0D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F085E3BB-CF2E-451E-9E4D-4D5EBA39C0D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F085E3BB-CF2E-451E-9E4D-4D5EBA39C0D5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{02CF4FE8-A8DC-4DC4-B815-9447F160E07D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02CF4FE8-A8DC-4DC4-B815-9447F160E07D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02CF4FE8-A8DC-4DC4-B815-9447F160E07D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02CF4FE8-A8DC-4DC4-B815-9447F160E07D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
