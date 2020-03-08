@@ -6,11 +6,19 @@ using System.Text;
 using System.Threading.Tasks;
 using Dapper;
 using DapperORM.Properties;
+using log4net;
 
 namespace DapperORM
 {
     public class StudentDataAccess : IStudentDataAccess
     {
+        private static readonly ILog logger = LogManager.GetLogger(typeof(Student));
+
+        public StudentDataAccess()
+        {
+            log4net.Config.XmlConfigurator.Configure();
+        }
+
         public bool Create(Student student)
         {
             using (var connection = new SqlConnection(Resources.SimpleConnection))
@@ -21,7 +29,8 @@ namespace DapperORM
                     return true;
                 }catch(Exception e)
                 {
-                    // Logs
+                    logger.Error(Resources.sqlExceptionCreate);
+                    logger.Error(e.Message);
                     throw;
                 }
             }
@@ -38,7 +47,8 @@ namespace DapperORM
                 }
                 catch (Exception e)
                 {
-                    // Logs
+                    logger.Error(Resources.sqlExceptionDelete);
+                    logger.Error(e.Message);
                     throw;
                 }
             }
@@ -57,7 +67,8 @@ namespace DapperORM
                 }
                 catch (Exception e)
                 {
-                    // Logs;
+                    logger.Error(Resources.sqlExceptionRead);
+                    logger.Error(e.Message);
                     throw;
                 }
             }
@@ -75,7 +86,8 @@ namespace DapperORM
                     return list;
                 }catch(Exception e)
                 {
-                    // Logs;
+                    logger.Error(Resources.sqlExceptionRead);
+                    logger.Error(e.Message);
                     throw;
                 }
             }
@@ -94,7 +106,8 @@ namespace DapperORM
                 }
                 catch (Exception e)
                 {
-                    // Logs;
+                    logger.Error(Resources.sqlExceptionRead);
+                    logger.Error(e.Message);
                     throw;
                 }
             }
@@ -113,7 +126,8 @@ namespace DapperORM
                 }
                 catch (Exception e)
                 {
-                    // Logs;
+                    logger.Error(Resources.sqlExceptionRead);
+                    logger.Error(e.Message);
                     throw;
                 }
             }
@@ -121,7 +135,20 @@ namespace DapperORM
 
         public bool Update(Student student)
         {
-            throw new NotImplementedException();
+            using (var connection = new SqlConnection(Resources.SimpleConnection))
+            {
+                try
+                {
+                    connection.Execute(Resources.sqlUpdateQuery, student);
+                    return true;
+                }
+                catch (Exception e)
+                {
+                    logger.Error(Resources.sqlExceptionUpdate);
+                    logger.Error(e.Message);
+                    throw;
+                }
+            }
         }
     }
 }
