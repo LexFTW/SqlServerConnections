@@ -34,9 +34,21 @@ namespace SqlQuerys
         }
 
 
-        public bool Delete(Student student)
+        public bool Delete(int pId)
         {
-            throw new NotImplementedException();
+            bool delete = false;
+            try
+            {
+                commandSql = new SqlCommand("delete from Libros where Codigo=" + pId, ConnectionUtility.OpenConnection());
+                commandSql.ExecuteNonQuery();
+                delete = true;
+            }
+            catch (Exception e)
+            {
+                logger.Info("no se borró" + e.ToString());
+            }
+
+            return delete;
         }
         public Student Read(int pId)
         {
@@ -60,9 +72,23 @@ namespace SqlQuerys
             return student;
         }
 
-        public bool Update(Student student)
+        public bool Update(int pId)
         {
-            throw new NotImplementedException();
+            bool updated = false;
+            Student student = Read(pId);
+            try
+            {
+                commandSql = new SqlCommand("update Student set StudentGuid='"+student.StuidetnGuid1 +"',Name='" + student.StudentName + "',Surname='" + student.StudentSurname + "',Birthday='" + student.AgeOfBirth+"',Age='"+ student.StudentAge +"' where StudentId= " + pId, ConnectionUtility.OpenConnection());
+                commandSql.ExecuteNonQuery();
+                logger.Info("Update");
+                updated = true;
+            }
+            catch (Exception e)
+            {
+                logger.Info("no se insertó" + e.ToString());
+            }
+
+            return updated;
         }
     }
 }
