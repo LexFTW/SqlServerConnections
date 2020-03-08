@@ -39,9 +39,17 @@ namespace EntityFrameworkFirstCode.Tests
 
         [DataRow("Alexis")]
         [DataRow("Mengual")]
-        [DataRow("22")]
+        [DataRow(22)]
         [DataTestMethod()]
         public void ReadTest(string value)
+        {
+            var students = studentDataAccess.Read(value);
+            Assert.IsNotNull(students);
+        }
+
+        [DataRow(22)]
+        [DataTestMethod()]
+        public void ReadIntTest(int value)
         {
             var students = studentDataAccess.Read(value);
             Assert.IsNotNull(students);

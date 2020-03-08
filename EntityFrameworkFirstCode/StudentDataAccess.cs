@@ -29,16 +29,33 @@ namespace EntityFrameworkFirstCode
             throw new NotImplementedException();
         }
 
-        public List<Student> Read(string query)
+        public List<Student> Read(string value)
         {
             using (var db = new StudentDataset())
             {
                 try
                 {
-                    var students = db.Students.Where(s => s.Name.Contains(query) 
-                    || s.Surname.Contains(query)).ToList();
+                    var students = db.Students.Where(s => s.Name.Contains(value) 
+                    || s.Surname.Contains(value)).ToList();
                     return students;
                 }catch(Exception e)
+                {
+                    // logs
+                    throw;
+                }
+            }
+        }
+
+        public List<Student> Read(int value)
+        {
+            using (var db = new StudentDataset())
+            {
+                try
+                {
+                    var students = db.Students.Where(s => s.Age == value).ToList();
+                    return students;
+                }
+                catch (Exception e)
                 {
                     // logs
                     throw;

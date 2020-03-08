@@ -6,7 +6,8 @@ namespace EntityFrameworkFirstCode
     {
         bool Create(Student student);
         Student ReadById(int id);
-        List<Student> Read(string query);
+        List<Student> Read(string value);
+        List<Student> Read(int value);
         bool Update(Student student);
         bool Delete(Student student);
 
