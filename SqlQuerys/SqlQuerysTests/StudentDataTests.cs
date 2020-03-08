@@ -54,7 +54,6 @@ namespace SqlQuerys.Tests
         [TestMethod()]
         public void UpdateTest()
         {
-
             var name = "Mariana";
             var Surname = "Jimenez";
             var age = "2019-7-8";
