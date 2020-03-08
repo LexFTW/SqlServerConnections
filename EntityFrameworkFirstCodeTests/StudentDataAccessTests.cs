@@ -23,6 +23,10 @@ namespace EntityFrameworkFirstCode.Tests
         public void CreateTest()
         {
             Student student = new Student();
+            student.Name = "Alexis";
+            student.Surname = "Mengual Vázquez";
+            student.Age = 22;
+            student.StudentGuid = System.Guid.NewGuid();
             var result = studentDataAccess.Create(student);
             Assert.IsTrue(result);
         }

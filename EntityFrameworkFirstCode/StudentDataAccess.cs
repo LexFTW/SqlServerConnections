@@ -10,7 +10,18 @@ namespace EntityFrameworkFirstCode
     {
         public bool Create(Student student)
         {
-            return true;
+            using(var db = new StudentDataset())
+            {
+                try
+                {
+                    db.Students.Add(student);
+                    db.SaveChanges();
+                    return true;
+                }catch(Exception e){
+                    // Logs
+                    throw;
+                }
+            }
         }
 
         public bool Delete(Student student)
