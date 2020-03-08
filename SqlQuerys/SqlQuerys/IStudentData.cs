@@ -3,7 +3,7 @@
     public interface IStudentData
     {
         bool Create(string pName, string pSurname, string pBirth);
-        bool Read();
+        Student Read(int pId);
         bool Update(Student student);
         bool Delete(Student student);
     }

@@ -38,10 +38,26 @@ namespace SqlQuerys
         {
             throw new NotImplementedException();
         }
-
-        public bool Read()
+        public Student Read(int pId)
         {
-            throw new NotImplementedException();
+            Student student = new Student();
+            try
+            {
+                commandSql = new SqlCommand("select * from Student where StudentId=" + pId, ConnectionUtility.OpenConnection());
+                commandSql.ExecuteNonQuery();
+                dataReaderSql = commandSql.ExecuteReader();
+                while (dataReaderSql.Read())
+                {
+                    student = new Student(Convert.ToInt32(dataReaderSql["StudentId"]), Guid.Parse(dataReaderSql["StudentGuid"].ToString()), dataReaderSql["Name"].ToString(), dataReaderSql["Surname"].ToString(), Convert.ToDateTime(dataReaderSql["Birthday"]), Convert.ToInt32(dataReaderSql["Age"]));
+                    logger.Info(student.StudentId + " " + student.StudentName + " " + student.AgeOfBirth);
+                }
+                dataReaderSql.Close();
+            }
+            catch (Exception ex)
+            {
+                logger.Info("No se pudo realizar la consulta" + ex.ToString());
+            }
+            return student;
         }
 
         public bool Update(Student student)
