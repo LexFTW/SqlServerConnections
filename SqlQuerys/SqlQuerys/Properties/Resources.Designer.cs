@@ -61,11 +61,47 @@ namespace SqlQuerys.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a DELETE from Student WHERE StudentId= @pId.
+        /// </summary>
+        internal static string SqlDelete {
+            get {
+                return ResourceManager.GetString("SqlDelete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a INSERT Student (StudentGuid,Name, Surname, Birthday,Age) VALUES(@studenGuid,@studentName, @studentSurname,@studentBirthday,@studentAge).
+        /// </summary>
+        internal static string SqlInsert {
+            get {
+                return ResourceManager.GetString("SqlInsert", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a SELECT * from Student where StudentId= @pId.
+        /// </summary>
+        internal static string SqlSelect {
+            get {
+                return ResourceManager.GetString("SqlSelect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a SqlConnectionStudent.Settings.SqlConnectionString.
         /// </summary>
         internal static string SqlString {
             get {
                 return ResourceManager.GetString("SqlString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a UPDATE Student SET StudentGuid=@studenGuid +Name= @studentName + Surname= @studentSurname + Birthday= @studentBirthday+Age=@studentAge WHERE StudentId=  @pId.
+        /// </summary>
+        internal static string SqlUpdate {
+            get {
+                return ResourceManager.GetString("SqlUpdate", resourceCulture);
             }
         }
     }
