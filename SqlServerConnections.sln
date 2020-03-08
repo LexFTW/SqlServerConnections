@@ -11,6 +11,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DapperORM", "DapperORM\Dapp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DapperORMTests", "DapperORMTests\DapperORMTests.csproj", "{E32759C9-E70D-450E-A724-BF86BB1C2675}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntityFrameworkDatabaseFirst", "EntityFrameworkDatabaseFirst\EntityFrameworkDatabaseFirst.csproj", "{9F3A30B8-3B91-4944-BAD3-20C7A13209A7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntityFrameworkDatabaseFirstTests", "EntityFrameworkDatabaseFirstTests\EntityFrameworkDatabaseFirstTests.csproj", "{F54E2286-8120-4300-9AB7-165E782B0FB3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +37,14 @@ Global
 		{E32759C9-E70D-450E-A724-BF86BB1C2675}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E32759C9-E70D-450E-A724-BF86BB1C2675}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E32759C9-E70D-450E-A724-BF86BB1C2675}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9F3A30B8-3B91-4944-BAD3-20C7A13209A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9F3A30B8-3B91-4944-BAD3-20C7A13209A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9F3A30B8-3B91-4944-BAD3-20C7A13209A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9F3A30B8-3B91-4944-BAD3-20C7A13209A7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F54E2286-8120-4300-9AB7-165E782B0FB3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F54E2286-8120-4300-9AB7-165E782B0FB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F54E2286-8120-4300-9AB7-165E782B0FB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F54E2286-8120-4300-9AB7-165E782B0FB3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
