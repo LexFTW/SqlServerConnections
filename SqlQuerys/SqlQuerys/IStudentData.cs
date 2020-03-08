@@ -4,7 +4,7 @@
     {
         bool Create(string pName, string pSurname, string pBirth);
         Student Read(int pId);
-        bool Update(Student student);
+        bool Update(int pId);
         bool Delete(Student student);
     }
 }
