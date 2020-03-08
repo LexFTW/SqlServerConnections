@@ -70,7 +70,7 @@ namespace DapperORM.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a INSERT INTO Students (Name, Surname, Age) VALUES (@Name, @Surname, @Age);.
+        ///   Busca una cadena traducida similar a INSERT INTO Students (Name, Surname, Age, StudentGuid) VALUES (@Name, @Surname, @Age, @StudentGuid);.
         /// </summary>
         internal static string SqlCreateQuery {
             get {

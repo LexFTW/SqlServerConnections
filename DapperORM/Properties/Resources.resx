@@ -121,6 +121,6 @@
     <value>Server=.;Database=Vueling;User Id=sa;Password=yourStrong(!)Password</value>
   </data>
   <data name="SqlCreateQuery" xml:space="preserve">
-    <value>INSERT INTO Students (Name, Surname, Age) VALUES (@Name, @Surname, @Age);</value>
+    <value>INSERT INTO Students (Name, Surname, Age, StudentGuid) VALUES (@Name, @Surname, @Age, @StudentGuid);</value>
   </data>
 </root>
