@@ -46,7 +46,9 @@ namespace EntityFrameworkFirstCode.Tests
         [TestMethod()]
         public void ReadByIdTest()
         {
-            Assert.Fail();
+            var student = studentDataAccess.ReadById(2);
+            Assert.IsInstanceOfType(student, typeof(Student));
+            
         }
 
         [TestMethod()]

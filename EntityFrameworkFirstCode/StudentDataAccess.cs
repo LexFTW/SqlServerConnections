@@ -36,7 +36,18 @@ namespace EntityFrameworkFirstCode
 
         public Student ReadById(int id)
         {
-            throw new NotImplementedException();
+            using (var db = new StudentDataset())
+            {
+                try
+                {
+                    var student = db.Students.Find(id);
+                    return student;
+                }catch(Exception e)
+                {
+                    // Logs
+                    throw;
+                }
+            }
         }
 
         public bool Update(Student student)
