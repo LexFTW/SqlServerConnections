@@ -34,9 +34,21 @@ namespace SqlQuerys
         }
 
 
-        public bool Delete(Student student)
+        public bool Delete(int pId)
         {
-            throw new NotImplementedException();
+            bool delete = false;
+            try
+            {
+                commandSql = new SqlCommand("delete from Libros where Codigo=" + pId, ConnectionUtility.OpenConnection());
+                commandSql.ExecuteNonQuery();
+                delete = true;
+            }
+            catch (Exception e)
+            {
+                logger.Info("no se borró" + e.ToString());
+            }
+
+            return delete;
         }
         public Student Read(int pId)
         {
