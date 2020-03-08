@@ -88,6 +88,42 @@ namespace DapperORM.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a No se ha podido insertar el nuevo Estudiante..
+        /// </summary>
+        internal static string sqlExceptionCreate {
+            get {
+                return ResourceManager.GetString("sqlExceptionCreate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a No se ha podido eliminar el Estudiante..
+        /// </summary>
+        internal static string sqlExceptionDelete {
+            get {
+                return ResourceManager.GetString("sqlExceptionDelete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Error al lanzar la query y obtener a los Estudiantes..
+        /// </summary>
+        internal static string sqlExceptionRead {
+            get {
+                return ResourceManager.GetString("sqlExceptionRead", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a No se ha podido actualizar el Estudiante..
+        /// </summary>
+        internal static string sqlExceptionUpdate {
+            get {
+                return ResourceManager.GetString("sqlExceptionUpdate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a SELECT * FROM Students.
         /// </summary>
         internal static string SqlSelectAll {

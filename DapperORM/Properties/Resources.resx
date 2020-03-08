@@ -126,6 +126,18 @@
   <data name="sqlDeleteById" xml:space="preserve">
     <value>DELETE FROM Students WHERE StudentId = @StudentId;</value>
   </data>
+  <data name="sqlExceptionCreate" xml:space="preserve">
+    <value>No se ha podido insertar el nuevo Estudiante.</value>
+  </data>
+  <data name="sqlExceptionDelete" xml:space="preserve">
+    <value>No se ha podido eliminar el Estudiante.</value>
+  </data>
+  <data name="sqlExceptionRead" xml:space="preserve">
+    <value>Error al lanzar la query y obtener a los Estudiantes.</value>
+  </data>
+  <data name="sqlExceptionUpdate" xml:space="preserve">
+    <value>No se ha podido actualizar el Estudiante.</value>
+  </data>
   <data name="SqlSelectAll" xml:space="preserve">
     <value>SELECT * FROM Students</value>
   </data>
