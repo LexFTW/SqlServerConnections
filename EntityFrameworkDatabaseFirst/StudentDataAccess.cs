@@ -104,7 +104,25 @@ namespace EntityFrameworkDatabaseFirst
 
         public bool Update(Student student)
         {
-            throw new NotImplementedException();
+            var studentInDatabase = ReadById(student.StudentId);
+            studentInDatabase.Name = student.Name;
+            studentInDatabase.Surname = student.Surname;
+            studentInDatabase.Age = student.Age;
+            studentInDatabase.StudentGuid = student.StudentGuid;
+
+            using (var db = new StudentContext())
+            {
+                try
+                {
+                    db.SaveChanges();
+                    return true;
+                }
+                catch (Exception e)
+                {
+                    // Logs
+                    throw;
+                }
+            }
         }
     }
 }
