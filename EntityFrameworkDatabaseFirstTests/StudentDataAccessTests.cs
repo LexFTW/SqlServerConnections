@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using EntityFrameworkDatabaseFirst.Database_First;
+using System;
 
 namespace EntityFrameworkDatabaseFirst.Tests
 {
@@ -36,16 +37,31 @@ namespace EntityFrameworkDatabaseFirst.Tests
             student.Age = 22;
             student.StudentGuid = System.Guid.NewGuid();
             var result = studentDataAccess.Create(student);
-            Assert.IsTrue(result);
+            Assert.AreEqual(result, student);
         }
+
+        [TestMethod()]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void CreateTestException()
+        {
+            studentDataAccess.Create(null);
+        }
+
 
         [TestMethod()]
         public void DeleteTest()
         {
             Student student = new Student();
             student.StudentId = 2;
-            var students = studentDataAccess.Delete(student);
-            Assert.IsTrue(students);
+            var result = studentDataAccess.Delete(student);
+            Assert.AreEqual(result, student);
+        }
+
+        [TestMethod()]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void DeleteTestException()
+        {
+            studentDataAccess.Delete(null);
         }
 
         [DataRow("Alexis")]
@@ -74,6 +90,15 @@ namespace EntityFrameworkDatabaseFirst.Tests
         }
 
         [TestMethod()]
+        [ExpectedException(typeof(AssertFailedException))]
+        public void ReadByIdTestException()
+        {
+            var student = studentDataAccess.ReadById(0);
+            Assert.IsInstanceOfType(student, typeof(Student));
+
+        }
+
+        [TestMethod()]
         public void ReadAll()
         {
             var students = studentDataAccess.Read();
@@ -87,7 +112,21 @@ namespace EntityFrameworkDatabaseFirst.Tests
             var student = new Student();
             student.StudentId = 1;
             var result = studentDataAccess.Update(student);
-            Assert.IsTrue(result);
+            Assert.IsInstanceOfType(result, typeof(Student));
+        }
+
+        [TestMethod()]
+        [ExpectedException(typeof(NullReferenceException))]
+        public void UpdateTestException()
+        {
+            studentDataAccess.Update(null);
+        }
+
+        [ClassCleanup]
+        public static void TestFixtureTearDown()
+        {
+            var studentContext = new StudentContext();
+            studentContext.Database.ExecuteSqlCommand("TRUNCATE TABLE Students");
         }
     }
 }
