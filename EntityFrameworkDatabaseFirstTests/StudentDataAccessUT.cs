@@ -14,7 +14,6 @@ namespace EntityFrameworkDatabaseFirst.Tests
         [TestInitialize()]
         public void Setup()
         {
-            Student student = new Student();
             studentDataAcces = new Mock<IStudentDataAccess>();
             studentDataAcces.Setup(studentDA => studentDA.Create(It.IsAny<Student>())).Returns((Student s) => s);
             studentDataAcces.Setup(studentDA => studentDA.Create(null)).Throws<ArgumentNullException>();
@@ -99,7 +98,7 @@ namespace EntityFrameworkDatabaseFirst.Tests
         {
             Student student = new Student();
             var test = studentDataAcces.Object;
-            var result = test.Delete(student);
+            var result = test.Update(student);
             Assert.AreEqual(student, result);
         }
 
