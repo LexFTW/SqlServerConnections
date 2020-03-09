@@ -1,9 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DapperORM.Tests
 {
@@ -40,18 +36,19 @@ namespace DapperORM.Tests
             student.Age = 22;
             student.StudentGuid = System.Guid.NewGuid();
             var result = studentDataAccess.Create(student);
-            Assert.IsTrue(result);
+            Assert.AreEqual(result, student);
         }
+
 
         [TestMethod()]
         public void DeleteTest()
         {
             Student student = new Student();
             student.StudentId = 2;
-            var students = studentDataAccess.Delete(student);
-            Assert.IsTrue(students);
+            var result = studentDataAccess.Delete(student);
+            Assert.AreEqual(result, student);
         }
-
+        
         [DataRow("Alexis")]
         [DataRow("Mengual")]
         [DataTestMethod()]
@@ -78,12 +75,20 @@ namespace DapperORM.Tests
         }
 
         [TestMethod()]
+        public void ReadAll()
+        {
+            var students = studentDataAccess.Read();
+            Assert.IsNotNull(students);
+
+        }
+
+        [TestMethod()]
         public void UpdateTest()
         {
             var student = new Student();
             student.StudentId = 1;
             var result = studentDataAccess.Update(student);
-            Assert.IsTrue(result);
+            Assert.IsInstanceOfType(result, typeof(Student));
         }
     }
 }
