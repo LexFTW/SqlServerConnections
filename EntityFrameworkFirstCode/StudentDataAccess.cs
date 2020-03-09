@@ -1,39 +1,80 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
+using System.Data.Entity.Validation;
 using System.Linq;
+using EntityFrameworkFirstCode.LogUtility;
 using EntityFrameworkFirstCode.Properties;
-using log4net;
 
 namespace EntityFrameworkFirstCode
 {
     public class StudentDataAccess : IStudentDataAccess
     {
-        private static readonly ILog logger = LogManager.GetLogger(typeof(Student));
+
+        private readonly LogginUtility logger = null;
 
         public StudentDataAccess()
         {
-            log4net.Config.XmlConfigurator.Configure();
+            logger = new LogginUtility();
         }
 
-        public bool Create(Student student)
+        public Student Create(Student student)
         {
-            using(var db = new StudentDataset())
+            using (var db = new StudentDataset())
             {
                 try
                 {
                     db.Students.Add(student);
                     db.SaveChanges();
-                    return true;
-                }catch(Exception e){
-                    logger.Error(Resources.sqlExceptionCreate);
-                    logger.Error(e.Message);
+                    return student;
+                }
+                catch (DbUpdateConcurrencyException dbUpdateConcurrencyException)
+                {
+                    logger.SetMessageError(dbUpdateConcurrencyException.Message, Resources.sqlExceptionCreate);
+                    logger.StackTraceAboutError(dbUpdateConcurrencyException.StackTrace);
+                    throw;
+                }
+                catch (DbUpdateException dbUpdateException)
+                {
+                    logger.SetMessageError(dbUpdateException.Message, Resources.sqlExceptionCreate);
+                    logger.StackTraceAboutError(dbUpdateException.StackTrace);
+                    throw;
+                }
+                catch (DbEntityValidationException dbEntityValidationException)
+                {
+                    logger.SetMessageError(dbEntityValidationException.Message, Resources.sqlExceptionCreate);
+                    logger.StackTraceAboutError(dbEntityValidationException.StackTrace);
+                    throw;
+                }
+                catch (NotSupportedException notSupportedException)
+                {
+                    logger.SetMessageError(notSupportedException.Message, Resources.sqlExceptionCreate);
+                    logger.StackTraceAboutError(notSupportedException.StackTrace);
+                    throw;
+                }
+                catch (ObjectDisposedException objectDisposedException)
+                {
+                    logger.SetMessageError(objectDisposedException.Message, Resources.sqlExceptionCreate);
+                    logger.StackTraceAboutError(objectDisposedException.StackTrace);
+                    throw;
+                }
+                catch (InvalidOperationException invalidOperationException)
+                {
+                    logger.SetMessageError(invalidOperationException.Message, Resources.sqlExceptionCreate);
+                    logger.StackTraceAboutError(invalidOperationException.StackTrace);
+                    throw;
+                }
+                catch (ArgumentNullException argumentNullException)
+                {
+                    logger.SetMessageError(argumentNullException.Message, Resources.sqlExceptionCreate);
+                    logger.StackTraceAboutError(argumentNullException.StackTrace);
                     throw;
                 }
             }
         }
 
-        public bool Delete(Student student)
+        public Student Delete(Student student)
         {
             using (var db = new StudentDataset())
             {
@@ -41,10 +82,42 @@ namespace EntityFrameworkFirstCode
                 {
                     db.Entry(student).State = EntityState.Deleted;
                     db.SaveChanges();
-                    return true;
-                }catch(Exception e){
-                    logger.Error(Resources.sqlExceptionDelete);
-                    logger.Error(e.Message);
+                    return student;
+                }
+                catch (DbUpdateConcurrencyException dbUpdateConcurrencyException)
+                {
+                    logger.SetMessageError(dbUpdateConcurrencyException.Message, Resources.sqlExceptionDelete);
+                    logger.StackTraceAboutError(dbUpdateConcurrencyException.StackTrace);
+                    throw;
+                }
+                catch (DbUpdateException dbUpdateException)
+                {
+                    logger.SetMessageError(dbUpdateException.Message, Resources.sqlExceptionDelete);
+                    logger.StackTraceAboutError(dbUpdateException.StackTrace);
+                    throw;
+                }
+                catch (DbEntityValidationException dbEntityValidationException)
+                {
+                    logger.SetMessageError(dbEntityValidationException.Message, Resources.sqlExceptionDelete);
+                    logger.StackTraceAboutError(dbEntityValidationException.StackTrace);
+                    throw;
+                }
+                catch (NotSupportedException notSupportedException)
+                {
+                    logger.SetMessageError(notSupportedException.Message, Resources.sqlExceptionDelete);
+                    logger.StackTraceAboutError(notSupportedException.StackTrace);
+                    throw;
+                }
+                catch (ObjectDisposedException objectDisposedException)
+                {
+                    logger.SetMessageError(objectDisposedException.Message, Resources.sqlExceptionDelete);
+                    logger.StackTraceAboutError(objectDisposedException.StackTrace);
+                    throw;
+                }
+                catch (InvalidOperationException invalidOperationException)
+                {
+                    logger.SetMessageError(invalidOperationException.Message, Resources.sqlExceptionDelete);
+                    logger.StackTraceAboutError(invalidOperationException.StackTrace);
                     throw;
                 }
             }
@@ -56,13 +129,14 @@ namespace EntityFrameworkFirstCode
             {
                 try
                 {
-                    var students = db.Students.Where(s => s.Name.Contains(value) 
+                    var students = db.Students.Where(s => s.Name.Contains(value)
                     || s.Surname.Contains(value)).ToList();
                     return students;
-                }catch(Exception e)
+                }
+                catch (ArgumentNullException argumentNullException)
                 {
-                    logger.Error(Resources.sqlExceptionRead);
-                    logger.Error(e.Message);
+                    logger.SetMessageError(argumentNullException.Message, Resources.sqlExceptionRead);
+                    logger.StackTraceAboutError(argumentNullException.StackTrace);
                     throw;
                 }
             }
@@ -77,10 +151,28 @@ namespace EntityFrameworkFirstCode
                     var students = db.Students.Where(s => s.Age == value).ToList();
                     return students;
                 }
-                catch (Exception e)
+                catch (ArgumentNullException argumentNullException)
                 {
-                    logger.Error(Resources.sqlExceptionRead);
-                    logger.Error(e.Message);
+                    logger.SetMessageError(argumentNullException.Message, Resources.sqlExceptionRead);
+                    logger.StackTraceAboutError(argumentNullException.StackTrace);
+                    throw;
+                }
+            }
+        }
+
+        public List<Student> Read()
+        {
+            using (var db = new StudentDataset())
+            {
+                try
+                {
+                    var students = db.Students.ToList();
+                    return students;
+                }
+                catch (ArgumentNullException argumentNullException)
+                {
+                    logger.SetMessageError(argumentNullException.Message, Resources.sqlExceptionRead);
+                    logger.StackTraceAboutError(argumentNullException.StackTrace);
                     throw;
                 }
             }
@@ -94,16 +186,17 @@ namespace EntityFrameworkFirstCode
                 {
                     var student = db.Students.Find(id);
                     return student;
-                }catch(Exception e)
+                }
+                catch (ArgumentNullException argumentNullException)
                 {
-                    logger.Error(Resources.sqlExceptionRead);
-                    logger.Error(e.Message);
+                    logger.SetMessageError(argumentNullException.Message, Resources.sqlExceptionRead);
+                    logger.StackTraceAboutError(argumentNullException.StackTrace);
                     throw;
                 }
             }
         }
 
-        public bool Update(Student student)
+        public Student Update(Student student)
         {
             var studentInDatabase = ReadById(student.StudentId);
             studentInDatabase.Name = student.Name;
@@ -116,11 +209,12 @@ namespace EntityFrameworkFirstCode
                 try
                 {
                     db.SaveChanges();
-                    return true;
-                }catch(Exception e)
+                    return studentInDatabase;
+                }
+                catch (ArgumentNullException argumentNullException)
                 {
-                    logger.Error(Resources.sqlExceptionUpdate);
-                    logger.Error(e.Message);
+                    logger.SetMessageError(argumentNullException.Message, Resources.sqlExceptionUpdate);
+                    logger.StackTraceAboutError(argumentNullException.StackTrace);
                     throw;
                 }
             }

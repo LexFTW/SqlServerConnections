@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using EntityFrameworkDatabaseFirst.Database_First;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
-namespace EntityFrameworkDatabaseFirst.Tests
+namespace EntityFrameworkFirstCode.Tests
 {
     [TestClass()]
     public class StudentDataAccessUT
