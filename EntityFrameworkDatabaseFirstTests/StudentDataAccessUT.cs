@@ -1,4 +1,6 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System.Collections.Generic;
+using EntityFrameworkDatabaseFirst.Database_First;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
 namespace EntityFrameworkDatabaseFirst.Tests
@@ -6,24 +8,28 @@ namespace EntityFrameworkDatabaseFirst.Tests
     [TestClass()]
     public class StudentDataAccessUT
     {
-        private static Mock<StudentDataAccess> studentDataAcces;
+        private static Mock<IStudentDataAccess> studentDataAcces;
 
         [ClassInitialize()]
         public static void TestFixtureSetup(TestContext context)
         {
-            studentDataAcces = new Mock<StudentDataAccess>();
         }
 
         [TestInitialize()]
         public void Setup()
         {
-
+            var student = new Student();
+            studentDataAcces = new Mock<IStudentDataAccess>();
+            studentDataAcces.Setup(studentData => studentData.Create(student)).Returns(student);
         }
 
         [TestMethod()]
         public void CreateUT()
         {
-            Assert.Fail();
+            var test = studentDataAcces.Object;
+            Student student = new Student();
+            var result = test.Create(student);
+            Assert.AreEqual(student, result);
         }
 
         [TestMethod()]
