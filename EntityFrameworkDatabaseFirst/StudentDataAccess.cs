@@ -20,7 +20,7 @@ namespace EntityFrameworkDatabaseFirst
             logger = new LogginUtility();
         }
 
-        public virtual Student Create(Student student)
+        public Student Create(Student student)
         {
             using (var db = new StudentContext())
             {
