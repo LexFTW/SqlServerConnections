@@ -1,5 +1,4 @@
-﻿using System;
-using EntityFrameworkDatabaseFirst.Database_First;
+﻿using EntityFrameworkDatabaseFirst.Database_First;
 using log4net;
 
 namespace EntityFrameworkDatabaseFirst.LogUtility
