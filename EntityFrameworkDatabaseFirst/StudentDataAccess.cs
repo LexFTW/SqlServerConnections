@@ -65,6 +65,11 @@ namespace EntityFrameworkDatabaseFirst
                     logger.SetMessageError(invalidOperationException.Message, Resources.sqlExceptionCreate);
                     logger.StackTraceAboutError(invalidOperationException.StackTrace);
                     throw;
+                }catch(ArgumentNullException argumentNullException)
+                {
+                    logger.SetMessageError(argumentNullException.Message, Resources.sqlExceptionCreate);
+                    logger.StackTraceAboutError(argumentNullException.StackTrace);
+                    throw;
                 }
             }
         }

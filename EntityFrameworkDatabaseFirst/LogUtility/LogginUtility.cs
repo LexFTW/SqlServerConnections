@@ -6,11 +6,6 @@ namespace EntityFrameworkDatabaseFirst.LogUtility
     class LogginUtility
     {
         private static readonly ILog logger = LogManager.GetLogger(typeof(Student));
-
-        public LogginUtility()
-        {
-            log4net.Config.XmlConfigurator.Configure();
-        }
         
         public void SetMessageError(string message, string customMessage)
         {
