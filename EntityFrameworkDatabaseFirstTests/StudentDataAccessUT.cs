@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using EntityFrameworkDatabaseFirst.Database_First;
+﻿using EntityFrameworkDatabaseFirst.Database_First;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
@@ -10,24 +9,19 @@ namespace EntityFrameworkDatabaseFirst.Tests
     {
         private static Mock<IStudentDataAccess> studentDataAcces;
 
-        [ClassInitialize()]
-        public static void TestFixtureSetup(TestContext context)
-        {
-        }
-
         [TestInitialize()]
         public void Setup()
         {
-            var student = new Student();
+            Student student = new Student();
             studentDataAcces = new Mock<IStudentDataAccess>();
-            studentDataAcces.Setup(studentData => studentData.Create(student)).Returns(student);
+            studentDataAcces.Setup(studentDA => studentDA.Create(It.IsAny<Student>())).Returns((Student s) => s);
         }
 
         [TestMethod()]
         public void CreateUT()
         {
-            var test = studentDataAcces.Object;
             Student student = new Student();
+            var test = studentDataAcces.Object;
             var result = test.Create(student);
             Assert.AreEqual(student, result);
         }
