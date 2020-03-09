@@ -1,4 +1,6 @@
-﻿using EntityFrameworkDatabaseFirst.Database_First;
+﻿using System;
+using System.Collections.Generic;
+using EntityFrameworkDatabaseFirst.Database_First;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
@@ -15,6 +17,15 @@ namespace EntityFrameworkDatabaseFirst.Tests
             Student student = new Student();
             studentDataAcces = new Mock<IStudentDataAccess>();
             studentDataAcces.Setup(studentDA => studentDA.Create(It.IsAny<Student>())).Returns((Student s) => s);
+            studentDataAcces.Setup(studentDA => studentDA.Create(null)).Throws<ArgumentNullException>();
+            studentDataAcces.Setup(studentDA => studentDA.Delete(It.IsAny<Student>())).Returns((Student s) => s);
+            studentDataAcces.Setup(studentDA => studentDA.Delete(null)).Throws<ArgumentNullException>();
+            studentDataAcces.Setup(studentDA => studentDA.Read()).Returns(new List<Student>());
+            studentDataAcces.Setup(studentDA => studentDA.Read(It.IsAny<int>())).Returns(new List<Student>());
+            studentDataAcces.Setup(studentDA => studentDA.Read(It.IsAny<string>())).Returns(new List<Student>());
+            studentDataAcces.Setup(studentDA => studentDA.ReadById(It.IsAny<int>())).Returns(new Student());
+            studentDataAcces.Setup(studentDA => studentDA.Update(It.IsAny<Student>())).Returns((Student s) => s);
+            studentDataAcces.Setup(studentDA => studentDA.Update(null)).Throws<ArgumentNullException>();
         }
 
         [TestMethod()]
@@ -27,39 +38,77 @@ namespace EntityFrameworkDatabaseFirst.Tests
         }
 
         [TestMethod()]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void CreateUTException()
+        {
+            var test = studentDataAcces.Object;
+            test.Create(null);
+        }
+
+        [TestMethod()]
         public void DeleteUT()
         {
-            Assert.Fail();
+            Student student = new Student();
+            var test = studentDataAcces.Object;
+            var result = test.Delete(student);
+            Assert.AreEqual(student, result);
+        }
+
+        [TestMethod()]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void DeleteUTException()
+        {
+            var test = studentDataAcces.Object;
+            test.Delete(null);
         }
 
         [TestMethod()]
         public void ReadUT()
         {
-            Assert.Fail();
+            var test = studentDataAcces.Object;
+            var result = test.Read();
+            Assert.IsNotNull(result);
         }
 
         [TestMethod()]
         public void ReadUT1()
         {
-            Assert.Fail();
+            var test = studentDataAcces.Object;
+            var result = test.Read(23);
+            Assert.IsNotNull(result);
         }
 
         [TestMethod()]
         public void ReadUT2()
         {
-            Assert.Fail();
+            var test = studentDataAcces.Object;
+            var result = test.Read("Mock");
+            Assert.IsNotNull(result);
         }
 
         [TestMethod()]
         public void ReadByIdUT()
         {
-            Assert.Fail();
+            var test = studentDataAcces.Object;
+            var result = test.ReadById(1);
+            Assert.IsInstanceOfType(result, typeof(Student));
         }
 
         [TestMethod()]
         public void UpdateUT()
         {
-            Assert.Fail();
+            Student student = new Student();
+            var test = studentDataAcces.Object;
+            var result = test.Delete(student);
+            Assert.AreEqual(student, result);
+        }
+
+        [TestMethod()]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void UpdateUTException()
+        {
+            var test = studentDataAcces.Object;
+            test.Update(null);
         }
     }
 }
