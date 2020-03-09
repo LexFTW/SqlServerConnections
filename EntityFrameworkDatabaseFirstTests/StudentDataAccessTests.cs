@@ -36,7 +36,7 @@ namespace EntityFrameworkDatabaseFirst.Tests
             student.Age = 22;
             student.StudentGuid = System.Guid.NewGuid();
             var result = studentDataAccess.Create(student);
-            Assert.IsTrue(result);
+            Assert.AreEqual(result, student);
         }
 
         [TestMethod()]
@@ -44,8 +44,8 @@ namespace EntityFrameworkDatabaseFirst.Tests
         {
             Student student = new Student();
             student.StudentId = 2;
-            var students = studentDataAccess.Delete(student);
-            Assert.IsTrue(students);
+            var result = studentDataAccess.Delete(student);
+            Assert.AreEqual(result, student);
         }
 
         [DataRow("Alexis")]
@@ -87,7 +87,14 @@ namespace EntityFrameworkDatabaseFirst.Tests
             var student = new Student();
             student.StudentId = 1;
             var result = studentDataAccess.Update(student);
-            Assert.IsTrue(result);
+            Assert.IsInstanceOfType(result, typeof(Student));
+        }
+
+        [ClassCleanup]
+        public static void TestFixtureTearDown()
+        {
+            var studentContext = new StudentContext();
+            studentContext.Database.ExecuteSqlCommand("TRUNCATE TABLE Students");
         }
     }
 }
