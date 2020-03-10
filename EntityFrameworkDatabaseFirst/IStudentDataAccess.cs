@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
+using EntityFrameworkDatabaseFirst.Database_First;
 
-namespace EntityFrameworkFirstCode
+namespace EntityFrameworkDatabaseFirst
 {
     public interface IStudentDataAccess
     {

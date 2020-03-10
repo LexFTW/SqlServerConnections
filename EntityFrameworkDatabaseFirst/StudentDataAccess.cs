@@ -4,10 +4,11 @@ using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Validation;
 using System.Linq;
-using EntityFrameworkFirstCode.LogUtility;
-using EntityFrameworkFirstCode.Properties;
+using EntityFrameworkDatabaseFirst.Database_First;
+using EntityFrameworkDatabaseFirst.LogUtility;
+using EntityFrameworkDatabaseFirst.Properties;
 
-namespace EntityFrameworkFirstCode
+namespace EntityFrameworkDatabaseFirst
 {
     public class StudentDataAccess : IStudentDataAccess
     {
@@ -64,8 +65,7 @@ namespace EntityFrameworkFirstCode
                     logger.SetMessageError(invalidOperationException.Message, Resources.sqlExceptionCreate);
                     logger.StackTraceAboutError(invalidOperationException.StackTrace);
                     throw;
-                }
-                catch (ArgumentNullException argumentNullException)
+                }catch(ArgumentNullException argumentNullException)
                 {
                     logger.SetMessageError(argumentNullException.Message, Resources.sqlExceptionCreate);
                     logger.StackTraceAboutError(argumentNullException.StackTrace);
@@ -211,40 +211,10 @@ namespace EntityFrameworkFirstCode
                     db.SaveChanges();
                     return studentInDatabase;
                 }
-                catch (DbUpdateConcurrencyException dbUpdateConcurrencyException)
+                catch (ArgumentNullException argumentNullException)
                 {
-                    logger.SetMessageError(dbUpdateConcurrencyException.Message, Resources.sqlExceptionDelete);
-                    logger.StackTraceAboutError(dbUpdateConcurrencyException.StackTrace);
-                    throw;
-                }
-                catch (DbUpdateException dbUpdateException)
-                {
-                    logger.SetMessageError(dbUpdateException.Message, Resources.sqlExceptionDelete);
-                    logger.StackTraceAboutError(dbUpdateException.StackTrace);
-                    throw;
-                }
-                catch (DbEntityValidationException dbEntityValidationException)
-                {
-                    logger.SetMessageError(dbEntityValidationException.Message, Resources.sqlExceptionDelete);
-                    logger.StackTraceAboutError(dbEntityValidationException.StackTrace);
-                    throw;
-                }
-                catch (NotSupportedException notSupportedException)
-                {
-                    logger.SetMessageError(notSupportedException.Message, Resources.sqlExceptionDelete);
-                    logger.StackTraceAboutError(notSupportedException.StackTrace);
-                    throw;
-                }
-                catch (ObjectDisposedException objectDisposedException)
-                {
-                    logger.SetMessageError(objectDisposedException.Message, Resources.sqlExceptionDelete);
-                    logger.StackTraceAboutError(objectDisposedException.StackTrace);
-                    throw;
-                }
-                catch (InvalidOperationException invalidOperationException)
-                {
-                    logger.SetMessageError(invalidOperationException.Message, Resources.sqlExceptionDelete);
-                    logger.StackTraceAboutError(invalidOperationException.StackTrace);
+                    logger.SetMessageError(argumentNullException.Message, Resources.sqlExceptionUpdate);
+                    logger.StackTraceAboutError(argumentNullException.StackTrace);
                     throw;
                 }
             }

@@ -1,8 +1,8 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using EntityFrameworkDatabaseFirst.Database_First;
 using System;
-using System.Data.SqlClient;
 
-namespace DapperORM.Tests
+namespace EntityFrameworkDatabaseFirst.Tests
 {
     [TestClass()]
     public class StudentDataAccessTests
@@ -41,7 +41,7 @@ namespace DapperORM.Tests
         }
 
         [TestMethod()]
-        [ExpectedException(typeof(SqlException))]
+        [ExpectedException(typeof(ArgumentNullException))]
         public void CreateTestException()
         {
             studentDataAccess.Create(null);
@@ -58,7 +58,7 @@ namespace DapperORM.Tests
         }
 
         [TestMethod()]
-        [ExpectedException(typeof(SqlException))]
+        [ExpectedException(typeof(ArgumentNullException))]
         public void DeleteTestException()
         {
             studentDataAccess.Delete(null);
@@ -90,7 +90,7 @@ namespace DapperORM.Tests
         }
 
         [TestMethod()]
-        [ExpectedException(typeof(InvalidOperationException))]
+        [ExpectedException(typeof(AssertFailedException))]
         public void ReadByIdTestException()
         {
             var student = studentDataAccess.ReadById(0);
@@ -116,7 +116,7 @@ namespace DapperORM.Tests
         }
 
         [TestMethod()]
-        [ExpectedException(typeof(SqlException))]
+        [ExpectedException(typeof(NullReferenceException))]
         public void UpdateTestException()
         {
             studentDataAccess.Update(null);
@@ -125,12 +125,8 @@ namespace DapperORM.Tests
         [ClassCleanup]
         public static void TestFixtureTearDown()
         {
-            string sqlTruncateTable = "TRUNCATE TABLE Students";
-            var connection = new SqlConnection("Server=.;Database=Vueling;User Id=sa;Password=yourStrong(!)Password;");
-            SqlCommand command = new SqlCommand(sqlTruncateTable, connection);
-            connection.Open();
-            command.ExecuteNonQuery();
-            connection.Close();
+            var studentContext = new StudentContext();
+            studentContext.Database.ExecuteSqlCommand("TRUNCATE TABLE Students");
         }
     }
 }

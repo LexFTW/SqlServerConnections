@@ -1,0 +1,4 @@
+﻿[*.cs]
+
+# S1117: Local variables should not shadow class fields
+dotnet_diagnostic.S1117.severity = none

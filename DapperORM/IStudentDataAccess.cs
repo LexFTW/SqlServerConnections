@@ -2,15 +2,15 @@
 
 namespace DapperORM
 {
-    public interface IStudentDataAccess
+    public interface IStudentDataAccess<T>
     {
-        bool Create(Student student);
-        Student ReadById(int id);
-        List<Student> Read();
-        List<Student> Read(string value);
-        List<Student> Read(int value);
-        bool Update(Student student);
-        bool Delete(Student student);
+        T Create(T student);
+        T ReadById(int id);
+        List<T> Read();
+        List<T> Read(string value);
+        List<T> Read(int value);
+        T Update(T student);
+        T Delete(T student);
 
     }
 }

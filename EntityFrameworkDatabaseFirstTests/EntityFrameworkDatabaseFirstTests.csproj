@@ -5,11 +5,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{5B35EDE0-F257-44DB-880E-4A515829F1D3}</ProjectGuid>
+    <ProjectGuid>{F54E2286-8120-4300-9AB7-165E782B0FB3}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>EntityFrameworkFirstCodeTests</RootNamespace>
-    <AssemblyName>EntityFrameworkFirstCodeTests</AssemblyName>
+    <RootNamespace>EntityFrameworkDatabaseFirstTests</RootNamespace>
+    <AssemblyName>EntityFrameworkDatabaseFirstTests</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -89,9 +89,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\EntityFrameworkFirstCode\EntityFrameworkFirstCode.csproj">
-      <Project>{9E92490D-9702-444D-9D18-7D58E73DCD63}</Project>
-      <Name>EntityFrameworkFirstCode</Name>
+    <ProjectReference Include="..\EntityFrameworkDatabaseFirst\EntityFrameworkDatabaseFirst.csproj">
+      <Project>{9F3A30B8-3B91-4944-BAD3-20C7A13209A7}</Project>
+      <Name>EntityFrameworkDatabaseFirst</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>

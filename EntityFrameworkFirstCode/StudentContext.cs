@@ -2,7 +2,7 @@
 
 namespace EntityFrameworkFirstCode
 {
-    public class StudentDataset : DbContext
+    public class StudentContext : DbContext
     {
         public DbSet<Student> Students { get; set; }
 
