@@ -11,9 +11,7 @@ namespace SqlStoredProceduresTests
     /// Descripción resumida de MoqTest
     /// </summary>
     [TestClass]
-    public class MoqTest
-    {
-        [TestClass]
+ 
         public class MoqTest
         {
             Mock<IStudentData> moqObject;

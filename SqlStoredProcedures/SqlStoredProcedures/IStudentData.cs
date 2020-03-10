@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SqlStoredProcedures
 {
-    interface IStudentData
+    public interface IStudentData
     {
         bool Create(Student student);
         Student Read(int pId);
