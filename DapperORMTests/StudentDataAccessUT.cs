@@ -8,12 +8,12 @@ namespace DapperORM.Tests
     [TestClass()]
     public class StudentDataAccessUT
     {
-        private static Mock<IStudentDataAccess> studentDataAcces;
+        private static Mock<IStudentDataAccess<Student>> studentDataAcces;
 
         [TestInitialize()]
         public void Setup()
         {
-            studentDataAcces = new Mock<IStudentDataAccess>();
+            studentDataAcces = new Mock<IStudentDataAccess<Student>>();
             studentDataAcces.Setup(studentDA => studentDA.Create(It.IsAny<Student>())).Returns((Student s) => s);
             studentDataAcces.Setup(studentDA => studentDA.Create(null)).Throws<ArgumentNullException>();
             studentDataAcces.Setup(studentDA => studentDA.Delete(It.IsAny<Student>())).Returns((Student s) => s);
