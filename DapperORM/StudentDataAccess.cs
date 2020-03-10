@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.SqlClient;
 using System.Linq;
 using Dapper;
@@ -81,6 +82,18 @@ namespace DapperORM
                     logger.StackTraceAboutError(sqlException.StackTrace);
                     throw;
                 }
+                catch (InvalidOperationException invalidOperationException)
+                {
+                    logger.SetMessageError(invalidOperationException.Message, Resources.sqlExceptionCreate);
+                    logger.StackTraceAboutError(invalidOperationException.StackTrace);
+                    throw;
+                }
+                catch (ConfigurationErrorsException configurationErrorsException)
+                {
+                    logger.SetMessageError(configurationErrorsException.Message, Resources.sqlExceptionCreate);
+                    logger.StackTraceAboutError(configurationErrorsException.StackTrace);
+                    throw;
+                }
                 catch (ArgumentNullException argumentNullException)
                 {
                     logger.SetMessageError(argumentNullException.Message, Resources.sqlExceptionCreate);
@@ -104,6 +117,18 @@ namespace DapperORM
                 {
                     logger.SetMessageError(sqlException.Message, Resources.sqlExceptionCreate);
                     logger.StackTraceAboutError(sqlException.StackTrace);
+                    throw;
+                }
+                catch (InvalidOperationException invalidOperationException)
+                {
+                    logger.SetMessageError(invalidOperationException.Message, Resources.sqlExceptionCreate);
+                    logger.StackTraceAboutError(invalidOperationException.StackTrace);
+                    throw;
+                }
+                catch (ConfigurationErrorsException configurationErrorsException)
+                {
+                    logger.SetMessageError(configurationErrorsException.Message, Resources.sqlExceptionCreate);
+                    logger.StackTraceAboutError(configurationErrorsException.StackTrace);
                     throw;
                 }
                 catch (ArgumentNullException argumentNullException)
@@ -131,6 +156,18 @@ namespace DapperORM
                     logger.StackTraceAboutError(sqlException.StackTrace);
                     throw;
                 }
+                catch (InvalidOperationException invalidOperationException)
+                {
+                    logger.SetMessageError(invalidOperationException.Message, Resources.sqlExceptionCreate);
+                    logger.StackTraceAboutError(invalidOperationException.StackTrace);
+                    throw;
+                }
+                catch (ConfigurationErrorsException configurationErrorsException)
+                {
+                    logger.SetMessageError(configurationErrorsException.Message, Resources.sqlExceptionCreate);
+                    logger.StackTraceAboutError(configurationErrorsException.StackTrace);
+                    throw;
+                }
                 catch (ArgumentNullException argumentNullException)
                 {
                     logger.SetMessageError(argumentNullException.Message, Resources.sqlExceptionCreate);
@@ -154,6 +191,18 @@ namespace DapperORM
                 {
                     logger.SetMessageError(sqlException.Message, Resources.sqlExceptionCreate);
                     logger.StackTraceAboutError(sqlException.StackTrace);
+                    throw;
+                }
+                catch (InvalidOperationException invalidOperationException)
+                {
+                    logger.SetMessageError(invalidOperationException.Message, Resources.sqlExceptionCreate);
+                    logger.StackTraceAboutError(invalidOperationException.StackTrace);
+                    throw;
+                }
+                catch (ConfigurationErrorsException configurationErrorsException)
+                {
+                    logger.SetMessageError(configurationErrorsException.Message, Resources.sqlExceptionCreate);
+                    logger.StackTraceAboutError(configurationErrorsException.StackTrace);
                     throw;
                 }
                 catch (ArgumentNullException argumentNullException)
