@@ -44,6 +44,15 @@ namespace SqlStoredProcedures
             AgeOfBirth = dateAge;
             StudentAge = age;
         }
+        public Student(string name, string surname, DateTime dateAge)
+        {
+
+
+            StudentName = name;
+            StudentSurname = surname;
+            AgeOfBirth = dateAge;
+
+        }
         public Student()
         {
 

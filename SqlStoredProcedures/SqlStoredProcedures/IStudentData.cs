@@ -8,9 +8,9 @@ namespace SqlStoredProcedures
 {
     interface IStudentData
     {
-        bool Create(string pName, string pSurname, string pBirth);
+        bool Create(Student student);
         Student Read(int pId);
-        bool Update(int pId, string pName, string pSurname, string pBirth);
+        bool Update(Student student);
         bool Delete(int pId);
     }
 }

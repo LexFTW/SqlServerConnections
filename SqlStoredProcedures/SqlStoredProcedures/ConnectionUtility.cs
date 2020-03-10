@@ -10,7 +10,7 @@ using SqlStoredProcedures.Properties;
 
 namespace SqlStoredProcedures
 {
-    class ConnectionUtility
+   public class ConnectionUtility
     {
         private static readonly ILog logger = LogManager.GetLogger(typeof(ConnectionUtility));
         SqlConnection connectionSql;

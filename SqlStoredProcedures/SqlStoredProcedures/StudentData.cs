@@ -1,28 +1,24 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using log4net;
 
 namespace SqlStoredProcedures
 {
-   public class StudentData:IStudentData
+    public class StudentData:IStudentData
     {
 
         private static readonly ILog logger = LogManager.GetLogger(typeof(StudentData));
-        SqlCommand commandSql;
-        SqlDataReader dataReaderSql;
-        public bool Create(string pName, string pSurname, string pBirth)
+      
+        
+        public bool Create(Student student)
         {
-            Student student = StudentDataUtility.AddStudent(pName, pSurname, pBirth);
+          student = StudentDataUtility.AddStudent(student.StudentName, student.StudentSurname, student.AgeOfBirth.ToString());
             logger.Info(student.StudentGuid1 + "...." + student.StudentName);
             bool created = false;
             try
             {
-                commandSql = new SqlCommand("InsertStudent", ConnectionUtility.OpenConnection());
+                SqlCommand commandSql = new SqlCommand("InsertStudent", ConnectionUtility.OpenConnection());
                 commandSql.CommandType = CommandType.StoredProcedure;
                 commandSql.Parameters.AddWithValue("@studentGuid", student.StudentGuid1);
                 commandSql.Parameters.AddWithValue("@studentName", student.StudentName);
@@ -32,11 +28,37 @@ namespace SqlStoredProcedures
                 commandSql.ExecuteNonQuery();
                 created = true;
             }
-            catch (SqlException ex)
+            catch (ArgumentNullException exception)
             {
-                logger.Info("SQL Error" + ex.Message.ToString());
+                logger.Error("no se insertó:    " + exception);
+                throw;
             }
-          
+            catch (InvalidCastException exception)
+            {
+                logger.Error("no se insertó:    " + exception);
+                throw;
+            }
+            catch (SqlException exception)
+            {
+                logger.Error("no se insertó:    " + exception);
+                throw;
+            }
+            catch (System.IO.IOException exception)
+            {
+                logger.Error("no se insertó:    " + exception);
+                throw;
+            }
+            catch (ObjectDisposedException exception)
+            {
+                logger.Error("no se insertó:    " + exception);
+                throw;
+            }
+            catch (InvalidOperationException exception)
+            {
+                logger.Error("no se insertó:    " + exception);
+                throw;
+            }
+
             return created;
         }
 
@@ -45,15 +67,36 @@ namespace SqlStoredProcedures
             bool delete = false;
             try
             {
-                commandSql = new SqlCommand("DeleteStudent", ConnectionUtility.OpenConnection());
+                SqlCommand commandSql = new SqlCommand("DeleteStudent", ConnectionUtility.OpenConnection());
                 commandSql.CommandType = CommandType.StoredProcedure;
                 commandSql.Parameters.AddWithValue("@pId", pId);
                 commandSql.ExecuteNonQuery();
                 delete = true;
             }
-            catch (Exception e)
+            catch (InvalidCastException exception)
             {
-                logger.Info("no se borró" + e.ToString());
+                logger.Error("no se insertó:    " + exception);
+                throw;
+            }
+            catch (SqlException exception)
+            {
+                logger.Error("no se insertó:    " + exception);
+                throw;
+            }
+            catch (System.IO.IOException exception)
+            {
+                logger.Error("no se insertó:    " + exception);
+                throw;
+            }
+            catch (ObjectDisposedException exception)
+            {
+                logger.Error("no se insertó:    " + exception);
+                throw;
+            }
+            catch (InvalidOperationException exception)
+            {
+                logger.Error("no se insertó:    " + exception);
+                throw;
             }
 
             return delete;
@@ -64,11 +107,11 @@ namespace SqlStoredProcedures
             Student student = new Student();
             try
             {
-                commandSql = new SqlCommand("SelectStudent", ConnectionUtility.OpenConnection());
+                SqlCommand commandSql = new SqlCommand("SelectStudent", ConnectionUtility.OpenConnection());
                 commandSql.CommandType = CommandType.StoredProcedure;
                 commandSql.Parameters.AddWithValue("@pId", pId);
                 commandSql.ExecuteNonQuery();
-                dataReaderSql = commandSql.ExecuteReader();
+              SqlDataReader dataReaderSql = commandSql.ExecuteReader();
                 while (dataReaderSql.Read())
                 {
                     student = new Student(Convert.ToInt32(dataReaderSql["StudentId"]), Guid.Parse(dataReaderSql["StudentGuid"].ToString()), dataReaderSql["Name"].ToString(), dataReaderSql["Surname"].ToString(), Convert.ToDateTime(dataReaderSql["Birthday"]), Convert.ToInt32(dataReaderSql["Age"]));
@@ -76,23 +119,44 @@ namespace SqlStoredProcedures
                 }
                 dataReaderSql.Close();
             }
-            catch (Exception ex)
+            catch (InvalidCastException exception)
             {
-                logger.Info("No se pudo realizar la consulta" + ex.ToString());
+                logger.Error("no se insertó:    " + exception);
+                throw;
+            }
+            catch (SqlException exception)
+            {
+                logger.Error("no se insertó:    " + exception);
+                throw;
+            }
+            catch (System.IO.IOException exception)
+            {
+                logger.Error("no se insertó:    " + exception);
+                throw;
+            }
+            catch (ObjectDisposedException exception)
+            {
+                logger.Error("no se insertó:    " + exception);
+                throw;
+            }
+            catch (InvalidOperationException exception)
+            {
+                logger.Error("no se insertó:    " + exception);
+                throw;
             }
             return student;
         }
 
-        public bool Update(int pId, string pName, string pSurname, string pBirth)
+        public bool Update(Student student)
         {
             bool updated = false;
-            Student student = Read(pId);
-            Student studentNew = StudentDataUtility.AddStudent(pName, pSurname, pBirth);
+            
+            Student studentNew = StudentDataUtility.AddStudent(student.StudentName, student.StudentSurname, student.AgeOfBirth.ToString());
             try
             {
-                commandSql = new SqlCommand("UpdateStudent", ConnectionUtility.OpenConnection());
+                SqlCommand commandSql = new SqlCommand("UpdateStudent", ConnectionUtility.OpenConnection());
                 commandSql.CommandType = CommandType.StoredProcedure;
-                commandSql.Parameters.AddWithValue("@pId", pId);
+                commandSql.Parameters.AddWithValue("@pId", student.StudentId);
                 commandSql.Parameters.AddWithValue("@studentGuid", studentNew.StudentGuid1);
                 commandSql.Parameters.AddWithValue("@studentName", studentNew.StudentName);
                 commandSql.Parameters.AddWithValue("@studentSurname", studentNew.StudentSurname);
@@ -102,9 +166,30 @@ namespace SqlStoredProcedures
                 logger.Info("Update");
                 updated = true;
             }
-            catch (Exception e)
+            catch (InvalidCastException exception)
             {
-                logger.Info("no se insertó" + e.ToString());
+                logger.Error("no se insertó:    " + exception);
+                throw;
+            }
+            catch (SqlException exception)
+            {
+                logger.Error("no se insertó:    " + exception);
+                throw;
+            }
+            catch (System.IO.IOException exception)
+            {
+                logger.Error("no se insertó:    " + exception);
+                throw;
+            }
+            catch (ObjectDisposedException exception)
+            {
+                logger.Error("no se insertó:    " + exception);
+                throw;
+            }
+            catch (InvalidOperationException exception)
+            {
+                logger.Error("no se insertó:    " + exception);
+                throw;
             }
 
             return updated;
