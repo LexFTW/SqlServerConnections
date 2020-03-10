@@ -82,11 +82,13 @@ namespace SqlQuerysTests
 
         [TestMethod]
         public void CreateTestUt()
-        {
-            Student student = new Student("Pepe", "Garrido", Convert.ToDateTime("2002-5-7"));
+        { 
+
+            Student student = new Student();
             var test = moqObject.Object;
             var result = test.Create(student);
-            Assert.AreEqual(student, result);
+            Assert.AreEqual(outStudent, result);
+
         }
         [TestMethod()]
         [ExpectedException(typeof(ArgumentNullException))]
