@@ -9,19 +9,31 @@ namespace SqlQuerys
     public class ConnectionUtility
     {
         private static readonly ILog logger = LogManager.GetLogger(typeof(ConnectionUtility));
-        SqlConnection connectionSql;
+        static SqlConnection connectionSql=null;
 
         public static SqlConnection OpenConnection()
         {
-            SqlConnection connectionSql= new SqlConnection();
+
             try
             {
                 connectionSql = new SqlConnection(GetConnectionStringByName(Resources.SqlString));
                 connectionSql.Open();
             }
+
+            catch (InvalidOperationException exception)
+            {
+                logger.Error("Connection Error", exception);
+                throw;
+            }
+            catch (SqlException exception)
+            {
+                logger.Error("Connection Error", exception);
+                throw;
+            }
             catch (Exception exception)
             {
-                logger.Info("Connection Error", exception);
+                logger.Error("Connection Error", exception);
+                throw;
             }
             return connectionSql;
         }

@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SqlQuerys
 {
-   public class StudentDataUtility
+    public static class StudentDataUtility
     {
         public static Student AddStudent(string pName, string pSurname, string pAge)
         {
@@ -30,7 +26,7 @@ namespace SqlQuerys
         }
         public static void AddStudentList(Student studentAdd)
         {
-            Student.students.Add(studentAdd);
+            Student.Students.Add(studentAdd);
         }
     }
 }

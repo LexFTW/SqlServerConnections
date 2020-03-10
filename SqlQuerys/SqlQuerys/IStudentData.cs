@@ -2,9 +2,10 @@
 {
     public interface IStudentData
     {
-        bool Create(string pName, string pSurname, string pBirth);
+      Student Create(Student student);
         Student Read(int pId);
-        bool Update(int pId, string pName, string pSurname, string pBirth);
+        Student Update(Student student);
         bool Delete(int pId);
+       
     }
 }

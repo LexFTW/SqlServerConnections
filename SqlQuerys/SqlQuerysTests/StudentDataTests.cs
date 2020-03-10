@@ -1,11 +1,6 @@
 ﻿using log4net;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SqlQuerys;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SqlQuerys.Tests
 {
@@ -17,22 +12,24 @@ namespace SqlQuerys.Tests
         [TestInitialize]
         public void Setup()
         {
-            log4net.Config.XmlConfigurator.Configure();
+            
             studentData = new StudentData();
-            studentData.Create("Pepe", "Martinez", "1991,3,6");
-            studentData.Create("Lolo", "Ruiz", "2000,3,7");
-            studentData.Create("Susana", "Lopez", "1998,7,6");
+            Student student1 = new Student("Pepe", "Garrido", Convert.ToDateTime("2002-5-7"));
+            Student student2 = new Student("Marina", "Lopez", Convert.ToDateTime("2007-8-2"));
+            Student student3 = new Student("Lolo", "Perez", Convert.ToDateTime("2005-7-7"));
+            studentData.Create(student1);
+            studentData.Create(student2);
+            studentData.Create(student3);
         }
 
         [TestMethod()]
         public void CreateTest()
         {
-            var pName = "Maria";
-            var pSurname = "Perez";
-            var pBirth = "2005-3-7";
-            var response = studentData.Create(pName, pSurname, pBirth);
+            Student student4 = new Student("Susana", "Martinez", Convert.ToDateTime("1991-5-9"));
+
+            var response = studentData.Create(student4);
             logger.Info("CreateTest:  " + response);
-            Assert.IsTrue(response);
+            Assert.IsInstanceOfType(response, typeof(Student));
         }
 
         [TestMethod()]
@@ -54,13 +51,10 @@ namespace SqlQuerys.Tests
         [TestMethod()]
         public void UpdateTest()
         {
-            var name = "Mariana";
-            var Surname = "Jimenez";
-            var age = "2019-7-8";
-            var id = 1;
-            var response = studentData.Update(id, name, Surname,age);
+            Student student5 = new Student(1,Guid.NewGuid()," Pepe", "Garrido", Convert.ToDateTime("2002-5-7"),20);
+            var response = studentData.Update(student5);
             logger.Info(".....UpdateTest:  " + response);
-            Assert.IsTrue(response);
+            Assert.IsInstanceOfType(response, (typeof(Student)));
         }
     }
 }
