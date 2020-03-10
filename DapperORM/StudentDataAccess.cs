@@ -8,7 +8,7 @@ using DapperORM.Properties;
 
 namespace DapperORM
 {
-    public class StudentDataAccess : IStudentDataAccess
+    public class StudentDataAccess : IStudentDataAccess<Student>
     {
         private readonly LogginUtility logger = null;
 
