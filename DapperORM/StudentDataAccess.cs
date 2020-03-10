@@ -72,7 +72,6 @@ namespace DapperORM
             {
                 try
                 {
-                    connection.Open();
                     var list = connection.Query<Student>(Resources.SqlSelectAll).ToList();
                     return list;
                 }
@@ -109,7 +108,6 @@ namespace DapperORM
             {
                 try
                 {
-                    connection.Open();
                     var list = connection.Query<Student>(Resources.SqlSelectStrings, new {Name = "%" + value + "%", Surname = "%" + value + "%" }).ToList();
                     return list;
                 }
@@ -146,7 +144,6 @@ namespace DapperORM
             {
                 try
                 {
-                    connection.Open();
                     var list = connection.Query<Student>(Resources.sqlSelectInts, new { Age = value}).ToList();
                     return list;
                 }
@@ -183,7 +180,6 @@ namespace DapperORM
             {
                 try
                 {
-                    connection.Open();
                     var student = connection.QueryFirst<Student>(Resources.sqlSelectById, new { Id = id });
                     return student;
                 }
