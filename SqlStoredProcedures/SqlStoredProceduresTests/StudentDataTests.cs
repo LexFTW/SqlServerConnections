@@ -14,23 +14,24 @@ namespace SqlStoredProcedures.Tests
     {
         private static readonly ILog logger = LogManager.GetLogger(typeof(StudentDataTests));
         public static StudentData studentData;
+        Student student1 = new Student("Pepito", "Palotes", Convert.ToDateTime("2001-2-6"));
+        Student student2 = new Student("Juanito", "Soso", Convert.ToDateTime("1999-2-6"));
+        Student student3 = new Student("Harry", "Potter", Convert.ToDateTime("2001-2-6"));
         [TestInitialize]
         public void Setup()
         {
             log4net.Config.XmlConfigurator.Configure();
             studentData = new StudentData();
-            studentData.Create("Pepe", "Martinez", "1991,3,6");
-            studentData.Create("Lolo", "Ruiz", "2000,3,7");
-            studentData.Create("Susana", "Lopez", "1998,7,6");
+            studentData.Create(student1);
+            studentData.Create(student2);
+            studentData.Create(student3);
         }
 
         [TestMethod()]
         public void CreateTest()
         {
-            var pName = "Maria";
-            var pSurname = "Perez";
-            var pBirth = "2005-3-7";
-            var response = studentData.Create(pName, pSurname, pBirth);
+           
+            var response = studentData.Create(student1);
             logger.Info("CreateTest:  " + response);
             Assert.IsTrue(response);
         }
@@ -54,13 +55,11 @@ namespace SqlStoredProcedures.Tests
         [TestMethod()]
         public void UpdateTest()
         {
-            var name = "Mariana";
-            var Surname = "Jimenez";
-            var age = "2019-7-8";
-            var id = 1;
-            var response = studentData.Update(id, name, Surname, age);
+           
+            var response = studentData.Update(student1);
             logger.Info(".....UpdateTest:  " + response);
             Assert.IsTrue(response);
         }
+       
     }
 }
