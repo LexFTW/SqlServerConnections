@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Data.SqlClient;
 
 namespace DapperORM.Tests
 {
@@ -40,7 +41,7 @@ namespace DapperORM.Tests
         }
 
         [TestMethod()]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [ExpectedException(typeof(SqlException))]
         public void CreateTestException()
         {
             studentDataAccess.Create(null);
@@ -57,7 +58,7 @@ namespace DapperORM.Tests
         }
 
         [TestMethod()]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [ExpectedException(typeof(SqlException))]
         public void DeleteTestException()
         {
             studentDataAccess.Delete(null);
@@ -89,7 +90,7 @@ namespace DapperORM.Tests
         }
 
         [TestMethod()]
-        [ExpectedException(typeof(AssertFailedException))]
+        [ExpectedException(typeof(InvalidOperationException))]
         public void ReadByIdTestException()
         {
             var student = studentDataAccess.ReadById(0);
@@ -115,10 +116,21 @@ namespace DapperORM.Tests
         }
 
         [TestMethod()]
-        [ExpectedException(typeof(NullReferenceException))]
+        [ExpectedException(typeof(SqlException))]
         public void UpdateTestException()
         {
             studentDataAccess.Update(null);
+        }
+
+        [ClassCleanup]
+        public static void TestFixtureTearDown()
+        {
+            string sqlTruncateTable = "TRUNCATE TABLE Students";
+            var connection = new SqlConnection("Server=.;Database=Vueling;User Id=sa;Password=yourStrong(!)Password;");
+            SqlCommand command = new SqlCommand(sqlTruncateTable, connection);
+            connection.Open();
+            command.ExecuteNonQuery();
+            connection.Close();
         }
     }
 }

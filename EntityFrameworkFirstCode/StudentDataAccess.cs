@@ -21,7 +21,7 @@ namespace EntityFrameworkFirstCode
 
         public Student Create(Student student)
         {
-            using (var db = new StudentDataset())
+            using (var db = new StudentContext())
             {
                 try
                 {
@@ -76,7 +76,7 @@ namespace EntityFrameworkFirstCode
 
         public Student Delete(Student student)
         {
-            using (var db = new StudentDataset())
+            using (var db = new StudentContext())
             {
                 try
                 {
@@ -125,7 +125,7 @@ namespace EntityFrameworkFirstCode
 
         public List<Student> Read(string value)
         {
-            using (var db = new StudentDataset())
+            using (var db = new StudentContext())
             {
                 try
                 {
@@ -144,7 +144,7 @@ namespace EntityFrameworkFirstCode
 
         public List<Student> Read(int value)
         {
-            using (var db = new StudentDataset())
+            using (var db = new StudentContext())
             {
                 try
                 {
@@ -162,7 +162,7 @@ namespace EntityFrameworkFirstCode
 
         public List<Student> Read()
         {
-            using (var db = new StudentDataset())
+            using (var db = new StudentContext())
             {
                 try
                 {
@@ -180,7 +180,7 @@ namespace EntityFrameworkFirstCode
 
         public Student ReadById(int id)
         {
-            using (var db = new StudentDataset())
+            using (var db = new StudentContext())
             {
                 try
                 {
@@ -204,17 +204,47 @@ namespace EntityFrameworkFirstCode
             studentInDatabase.Age = student.Age;
             studentInDatabase.StudentGuid = student.StudentGuid;
 
-            using (var db = new StudentDataset())
+            using (var db = new StudentContext())
             {
                 try
                 {
                     db.SaveChanges();
                     return studentInDatabase;
                 }
-                catch (ArgumentNullException argumentNullException)
+                catch (DbUpdateConcurrencyException dbUpdateConcurrencyException)
                 {
-                    logger.SetMessageError(argumentNullException.Message, Resources.sqlExceptionUpdate);
-                    logger.StackTraceAboutError(argumentNullException.StackTrace);
+                    logger.SetMessageError(dbUpdateConcurrencyException.Message, Resources.sqlExceptionDelete);
+                    logger.StackTraceAboutError(dbUpdateConcurrencyException.StackTrace);
+                    throw;
+                }
+                catch (DbUpdateException dbUpdateException)
+                {
+                    logger.SetMessageError(dbUpdateException.Message, Resources.sqlExceptionDelete);
+                    logger.StackTraceAboutError(dbUpdateException.StackTrace);
+                    throw;
+                }
+                catch (DbEntityValidationException dbEntityValidationException)
+                {
+                    logger.SetMessageError(dbEntityValidationException.Message, Resources.sqlExceptionDelete);
+                    logger.StackTraceAboutError(dbEntityValidationException.StackTrace);
+                    throw;
+                }
+                catch (NotSupportedException notSupportedException)
+                {
+                    logger.SetMessageError(notSupportedException.Message, Resources.sqlExceptionDelete);
+                    logger.StackTraceAboutError(notSupportedException.StackTrace);
+                    throw;
+                }
+                catch (ObjectDisposedException objectDisposedException)
+                {
+                    logger.SetMessageError(objectDisposedException.Message, Resources.sqlExceptionDelete);
+                    logger.StackTraceAboutError(objectDisposedException.StackTrace);
+                    throw;
+                }
+                catch (InvalidOperationException invalidOperationException)
+                {
+                    logger.SetMessageError(invalidOperationException.Message, Resources.sqlExceptionDelete);
+                    logger.StackTraceAboutError(invalidOperationException.StackTrace);
                     throw;
                 }
             }

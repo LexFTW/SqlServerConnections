@@ -26,6 +26,12 @@ namespace DapperORM
                     connection.Execute(Resources.SqlCreateQuery, student);
                     return student;
                 }
+                catch(SqlException sqlException) 
+                {
+                    logger.SetMessageError(sqlException.Message, Resources.sqlExceptionCreate);
+                    logger.StackTraceAboutError(sqlException.StackTrace);
+                    throw;
+                }
                 catch (ArgumentNullException argumentNullException)
                 {
                     logger.SetMessageError(argumentNullException.Message, Resources.sqlExceptionCreate);
@@ -43,6 +49,12 @@ namespace DapperORM
                 {
                     connection.Execute(Resources.sqlDeleteById, student);
                     return student;
+                }
+                catch (SqlException sqlException)
+                {
+                    logger.SetMessageError(sqlException.Message, Resources.sqlExceptionCreate);
+                    logger.StackTraceAboutError(sqlException.StackTrace);
+                    throw;
                 }
                 catch (ArgumentNullException argumentNullException)
                 {
@@ -63,6 +75,12 @@ namespace DapperORM
                     var list = connection.Query<Student>(Resources.SqlSelectAll).ToList();
                     return list;
                 }
+                catch (SqlException sqlException)
+                {
+                    logger.SetMessageError(sqlException.Message, Resources.sqlExceptionCreate);
+                    logger.StackTraceAboutError(sqlException.StackTrace);
+                    throw;
+                }
                 catch (ArgumentNullException argumentNullException)
                 {
                     logger.SetMessageError(argumentNullException.Message, Resources.sqlExceptionCreate);
@@ -81,6 +99,12 @@ namespace DapperORM
                     connection.Open();
                     var list = connection.Query<Student>(Resources.SqlSelectStrings, new {Name = "%" + value + "%", Surname = "%" + value + "%" }).ToList();
                     return list;
+                }
+                catch (SqlException sqlException)
+                {
+                    logger.SetMessageError(sqlException.Message, Resources.sqlExceptionCreate);
+                    logger.StackTraceAboutError(sqlException.StackTrace);
+                    throw;
                 }
                 catch (ArgumentNullException argumentNullException)
                 {
@@ -101,6 +125,12 @@ namespace DapperORM
                     var list = connection.Query<Student>(Resources.sqlSelectInts, new { Age = value}).ToList();
                     return list;
                 }
+                catch (SqlException sqlException)
+                {
+                    logger.SetMessageError(sqlException.Message, Resources.sqlExceptionCreate);
+                    logger.StackTraceAboutError(sqlException.StackTrace);
+                    throw;
+                }
                 catch (ArgumentNullException argumentNullException)
                 {
                     logger.SetMessageError(argumentNullException.Message, Resources.sqlExceptionCreate);
@@ -120,6 +150,12 @@ namespace DapperORM
                     var student = connection.QueryFirst<Student>(Resources.sqlSelectById, new { Id = id });
                     return student;
                 }
+                catch (SqlException sqlException)
+                {
+                    logger.SetMessageError(sqlException.Message, Resources.sqlExceptionCreate);
+                    logger.StackTraceAboutError(sqlException.StackTrace);
+                    throw;
+                }
                 catch (ArgumentNullException argumentNullException)
                 {
                     logger.SetMessageError(argumentNullException.Message, Resources.sqlExceptionCreate);
@@ -137,6 +173,12 @@ namespace DapperORM
                 {
                     connection.Execute(Resources.sqlUpdateQuery, student);
                     return student;
+                }
+                catch (SqlException sqlException)
+                {
+                    logger.SetMessageError(sqlException.Message, Resources.sqlExceptionCreate);
+                    logger.StackTraceAboutError(sqlException.StackTrace);
+                    throw;
                 }
                 catch (ArgumentNullException argumentNullException)
                 {

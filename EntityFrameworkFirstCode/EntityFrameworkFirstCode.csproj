@@ -65,7 +65,7 @@
     </Compile>
     <Compile Include="Student.cs" />
     <Compile Include="StudentDataAccess.cs" />
-    <Compile Include="StudentDataset.cs" />
+    <Compile Include="StudentContext.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\.editorconfig">

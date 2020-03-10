@@ -124,7 +124,7 @@ namespace EntityFrameworkFirstCode.Tests
         [ClassCleanup]
         public static void TestFixtureTearDown()
         {
-            var studentContext = new StudentDataset();
+            var studentContext = new StudentContext();
             studentContext.Database.ExecuteSqlCommand("TRUNCATE TABLE Students");
         }
     }
