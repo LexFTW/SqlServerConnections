@@ -39,6 +39,13 @@ namespace DapperORM.Tests
             Assert.AreEqual(result, student);
         }
 
+        [TestMethod()]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void CreateTestException()
+        {
+            studentDataAccess.Create(null);
+        }
+
 
         [TestMethod()]
         public void DeleteTest()
@@ -48,7 +55,14 @@ namespace DapperORM.Tests
             var result = studentDataAccess.Delete(student);
             Assert.AreEqual(result, student);
         }
-        
+
+        [TestMethod()]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void DeleteTestException()
+        {
+            studentDataAccess.Delete(null);
+        }
+
         [DataRow("Alexis")]
         [DataRow("Mengual")]
         [DataTestMethod()]
@@ -75,6 +89,15 @@ namespace DapperORM.Tests
         }
 
         [TestMethod()]
+        [ExpectedException(typeof(AssertFailedException))]
+        public void ReadByIdTestException()
+        {
+            var student = studentDataAccess.ReadById(0);
+            Assert.IsInstanceOfType(student, typeof(Student));
+
+        }
+
+        [TestMethod()]
         public void ReadAll()
         {
             var students = studentDataAccess.Read();
@@ -89,6 +112,13 @@ namespace DapperORM.Tests
             student.StudentId = 1;
             var result = studentDataAccess.Update(student);
             Assert.IsInstanceOfType(result, typeof(Student));
+        }
+
+        [TestMethod()]
+        [ExpectedException(typeof(NullReferenceException))]
+        public void UpdateTestException()
+        {
+            studentDataAccess.Update(null);
         }
     }
 }
