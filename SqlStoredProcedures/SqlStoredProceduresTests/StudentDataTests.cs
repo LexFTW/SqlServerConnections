@@ -33,7 +33,7 @@ namespace SqlStoredProcedures.Tests
            
             var response = studentData.Create(student1);
             logger.Info("CreateTest:  " + response);
-            Assert.IsTrue(response);
+            Assert.IsInstanceOfType(response, typeof(Student));
         }
 
         [TestMethod()]
@@ -58,7 +58,7 @@ namespace SqlStoredProcedures.Tests
            
             var response = studentData.Update(student1);
             logger.Info(".....UpdateTest:  " + response);
-            Assert.IsTrue(response);
+            Assert.IsInstanceOfType(response, typeof(Student));
         }
        
     }

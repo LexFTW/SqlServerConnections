@@ -14,21 +14,22 @@ namespace SqlQuerysTests
     public class MoqTest
     {
         Mock<IStudentData> moqObject;
-        readonly Student inputStudent = new Student("Pepe", "Perez", Convert.ToDateTime("2000-4-2"));
-        readonly Student outStudent = new Student();
+         Student inputStudent = new Student("Pepe", "Perez", Convert.ToDateTime("2000-4-2"));
+         Student outStudent = null;
 
         [TestInitialize]
         public void Setup()
         {
 
             moqObject = new Mock<IStudentData>();
-            moqObject.Setup(iStudent => iStudent.Create(inputStudent)).Returns(outStudent);
+            moqObject.Setup(iStudent => iStudent.Create(inputStudent)).Returns(inputStudent);
             moqObject.Setup(iStudent => iStudent.Create(null)).Throws<NullReferenceException>();
             moqObject.Setup(iStudent => iStudent.Read(1)).Returns(outStudent);
-            moqObject.Setup(iStudent => iStudent.Read(1)).Throws<ArgumentNullException>();
+            moqObject.Setup(iStudent => iStudent.Read(0)).Throws<NullReferenceException>();
             moqObject.Setup(iStudent => iStudent.Update(inputStudent)).Returns(outStudent);
-            moqObject.Setup(iStudent => iStudent.Update(null)).Throws<ArgumentNullException>();
+            moqObject.Setup(iStudent => iStudent.Update(null)).Throws<NullReferenceException>();
             moqObject.Setup(iStudent => iStudent.Delete(1)).Returns(true);
+            moqObject.Setup(iStudent => iStudent.Delete(0)).Throws<ArgumentNullException>();
 
 
 
@@ -81,72 +82,71 @@ namespace SqlQuerysTests
         #endregion
 
         [TestMethod]
-        public void CreateTestUt()
-        { 
-
-            Student student = new Student();
-            var test = moqObject.Object;
-            var result = test.Create(student);
-            Assert.AreEqual(outStudent, result);
+        public void CreateTest()
+        {
+            var result = moqObject.Object.Create(inputStudent);
+            Assert.AreEqual(inputStudent, result);
 
         }
         [TestMethod()]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [ExpectedException(typeof(NullReferenceException))]
         public void CreateException()
         {
-            var test = moqObject.Object;
-            test.Create(null);
+            
+            var response = moqObject.Object.Create(null);
+            Assert.IsNull(response);
         }
 
         [TestMethod()]
         public void DeleteTest()
         {
-          
-            var test = moqObject.Object;
-            var result = test.Delete(1);
-            Assert.IsTrue( result);
+            var response = moqObject.Object.Delete(1);
+            Assert.IsTrue(response);
+
         }
 
         [TestMethod()]
         [ExpectedException(typeof(ArgumentNullException))]
-        public void DeleteUTException()
+        public void DeleteException()
         {
-            var test = moqObject.Object;
-            test.Delete(0);
+            var response = moqObject.Object.Delete(0);
+            Assert.IsInstanceOfType(response,typeof(ArgumentNullException));
         }
 
         [TestMethod()]
-        public void ReadUT()
+        public void ReadTest()
         {
-            var test = moqObject.Object;
-            var result = test.Read(2);
-            Assert.IsNotNull(result);
+            var result = moqObject.Object.Create(inputStudent);
+            Assert.AreEqual(inputStudent, result);
+        }
+
+       
+        [TestMethod()]
+        [ExpectedException(typeof(NullReferenceException))]
+        public void ReadException()
+        {
+
+            var response = moqObject.Object.Create(null);
+            Assert.IsInstanceOfType(response, typeof(NullReferenceException));
+        }
+
+
+
+        [TestMethod()]
+        public void UpdateTest()
+        {
+            var response = moqObject.Object.Update(inputStudent);
+            Assert.AreEqual(outStudent, response);
+
+
         }
 
         [TestMethod()]
-        public void ReadTestUT()
-        {
-            var test = moqObject.Object;
-            var result = test.Read(2000);
-            Assert.IsNotNull(result);
-        }
-
-
-        [TestMethod()]
-        public void UpdateTestUT()
-        {
-            Student student = new Student();
-            var test = moqObject.Object;
-            var result = test.Update(student);
-            Assert.AreEqual(student, result);
-        }
-
-        [TestMethod()]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [ExpectedException(typeof(NullReferenceException))]
         public void UpdateException()
         {
-            var test = moqObject.Object;
-            test.Update(null);
+            var response = moqObject.Object.Create(null);
+            Assert.IsInstanceOfType(response, typeof(NullReferenceException));
         }
     }
 }

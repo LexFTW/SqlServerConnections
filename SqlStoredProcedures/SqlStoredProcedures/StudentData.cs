@@ -11,11 +11,11 @@ namespace SqlStoredProcedures
         private static readonly ILog logger = LogManager.GetLogger(typeof(StudentData));
       
         
-        public bool Create(Student student)
+        public Student Create(Student student)
         {
           student = StudentDataUtility.AddStudent(student.StudentName, student.StudentSurname, student.AgeOfBirth.ToString());
             logger.Info(student.StudentGuid1 + "...." + student.StudentName);
-            bool created = false;
+           
             try
             {
                 SqlCommand commandSql = new SqlCommand("InsertStudent", ConnectionUtility.OpenConnection());
@@ -26,7 +26,7 @@ namespace SqlStoredProcedures
                 commandSql.Parameters.AddWithValue("@studentBirthday", student.AgeOfBirth);
                 commandSql.Parameters.AddWithValue("@studentAge", student.StudentAge);
                 commandSql.ExecuteNonQuery();
-                created = true;
+              
             }
             catch (ArgumentNullException exception)
             {
@@ -59,7 +59,7 @@ namespace SqlStoredProcedures
                 throw;
             }
 
-            return created;
+            return student;
         }
 
         public bool Delete(int pId)
@@ -147,9 +147,8 @@ namespace SqlStoredProcedures
             return student;
         }
 
-        public bool Update(Student student)
-        {
-            bool updated = false;
+        public Student Update(Student student)
+        { bool updated = false;
             
             Student studentNew = StudentDataUtility.AddStudent(student.StudentName, student.StudentSurname, student.AgeOfBirth.ToString());
             try
@@ -164,7 +163,7 @@ namespace SqlStoredProcedures
                 commandSql.Parameters.AddWithValue("@studentAge", studentNew.StudentAge);
                 commandSql.ExecuteNonQuery();
                 logger.Info("Update");
-                updated = true;
+                
             }
             catch (InvalidCastException exception)
             {
@@ -192,7 +191,7 @@ namespace SqlStoredProcedures
                 throw;
             }
 
-            return updated;
+            return student;
         }
     }
 }
